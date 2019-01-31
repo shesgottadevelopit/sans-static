@@ -1,0 +1,33 @@
+/*!
+Project name: pink lemonade sans-base theme
+Developer: akudo chigozie
+Description: simple starter for projects
+
+CSS file structure
+==================
+[insert structure]
+
+
+*/
+* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+}
+
+html {
+		box-sizing: border-box;
+}
+
+*, *:before, *:after {
+		box-sizing: inherit;
+}
+
+body {
+		font-family: "Hind";
+		font-size: 18px;
+		color: purple;
+		line-height: 1.75;
+}
+
+/*# sourceMappingURL=styles.css.map */

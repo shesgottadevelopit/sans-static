@@ -1,0 +1,24 @@
+{# 404.nunjucks #}
+{% set title = "What's the 404?" %}
+{% extends "main.nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
+
+{% block content %}
+<!-- main page content -->
+<main>
+
+    <div>
+        <section>
+            <div>
+                <h2>Sorry, this page does not exist! Return to my <a href="index.html">homepage</a> and try again!</h2>
+                <div>
+                    <img src="img/404-maxine.gif" alt="Maxine Shaw from Living Single Face Palm">
+                </div>
+                <br>
+
+            </div>
+        </section>
+    </div>
+
+
+</main>
+{% endblock %}

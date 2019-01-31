@@ -1,0 +1,14 @@
+// main: ../styles.scss
+
+// Primary font: Hind
+$primary-font: "Hind";
+$secondary-font: "Hind";
+
+body {
+    font-family: $primary-font;
+    font-size: 18px;
+    color: purple;
+    line-height: 1.75;
+}
+
+// Secondary font: Hind

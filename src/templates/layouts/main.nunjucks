@@ -1,0 +1,36 @@
+{# site main.nunjucks #}<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> {{ title }} | Page </title>
+
+    <link rel="icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    {# start body content #}
+<div class="page">
+            {# this adds the header partial #}
+            {% block header %}
+            {% include "partials/header.nunjucks" %}
+            {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+
+            {# this adds the footer partial #}
+            {% block footer %}
+            {% include "partials/footer.nunjucks" %}
+            {% endblock %}
+</div>
+    {# end body content #}
+    <script src="scripts/functions.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</body>
+
+</html>

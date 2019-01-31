@@ -1,0 +1,25 @@
+# on using .gitignore https://git-scm.com/docs/gitignore
+
+# Ignore everything in the following
+.*
+~*
+
+# ignores these things in the src directory
+src/img/*
+src/scss/helpers/resets/**
+robots.txt
+.editorconfig
+css/styles.css.map
+
+
+# ignores Netbeans config folder
+nbproject/**
+
+# ignores Nodejs folder
+node_modules/**
+
+# ignore OS generated files
+Thumbs.db
+
+# don't ignore .gitignore
+!.gitignore

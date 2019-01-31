@@ -1,0 +1,17 @@
+// main: ../styles.scss
+
+* { //strips all elements of margins and padding and defaults to border-box sizing and allows use of css box model
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// or
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}

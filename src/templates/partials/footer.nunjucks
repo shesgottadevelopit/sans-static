@@ -1,0 +1,6 @@
+{# footer.nunjucks #}
+
+<!-- footer/credits -->
+<footer class="credits content-container">
+    <span>Created by me © 2019 </span>
+</footer>
