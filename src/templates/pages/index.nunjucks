@@ -1,6 +1,6 @@
 {# index.nunjucks #}
-{% set title = "Home" %}
-{% extends "main.nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
+{% set title = "Homepage" %}
+{% extends "../layouts/main.nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
 
 {% block content %}
 <!-- main page content -->

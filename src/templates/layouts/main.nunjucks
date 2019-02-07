@@ -1,4 +1,5 @@
-{# site main.nunjucks #}<!DOCTYPE html>
+{# site main.nunjucks #}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,7 +18,7 @@
 <div class="page">
             {# this adds the header partial #}
             {% block header %}
-            {% include "partials/header.nunjucks" %}
+            {% include "header.nunjucks" %}
             {% endblock %}
 
         {% block content %}
@@ -25,8 +26,9 @@
 
             {# this adds the footer partial #}
             {% block footer %}
-            {% include "partials/footer.nunjucks" %}
+            {% include "footer.nunjucks" %}
             {% endblock %}
+
 </div>
     {# end body content #}
     <script src="scripts/functions.js"></script>

@@ -5,8 +5,9 @@ var browserSync = require('browser-sync').create();
 var nunjucksRender = require('gulp-nunjucks-render');
 var merge = require('merge-stream');
 var gutil = require('gulp-util');
-//var ftp = require('vinyl-ftp');
 var cleanbuild = require('del');
+//var ftp = require('vinyl-ftp');
+
 
 
 /*** local development tasks
@@ -36,16 +37,40 @@ gulp.task('browser-sync', function() {
 // nunjucks compilation to html
 gulp.task('nunjucks', function() {
 
-    // gets .html & .nunjucks files in the directory
-    return gulp.src('src/templates/pages/*.+(nunjucks|html)')
-    //renders files using the templates located in this directory
+    // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
+    return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
+    //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
     .pipe(nunjucksRender({
-        path: ['src/templates/layouts']
+        path: [
+            'src/templates/layouts', // the main template
+            'src/templates/partials', // partials
+            'src/templates/pages'] // pages that will be based on the main template & partials
     })).on('error', gutil.log) // checks and logs errors
     //outputs the files into the src home folder
     .pipe(gulp.dest('src'))
     .pipe(browserSync.reload({stream: true}));
 });
+
+// TO DO: nunjucks to html single page compilation
+gulp.task('singlepage', function() {
+
+    // gets .nunjucks file(s) in the directory
+    return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
+    //renders files using the templates located in this directory
+    .pipe(nunjucksRender({
+        path: [
+            'src/templates/layouts', // the main template
+            'src/templates/partials', // partials
+            'src/templates/pages'] // pages that will be based on the main template & partials
+    })).on('error', gutil.log) // checks and logs errors
+    //outputs the files into the src home folder
+    .pipe(gulp.dest('src'))
+    .pipe(browserSync.reload({stream: true}));
+});
+
+
+// TO DO: nunjucks and markdown to html compilation
+
 
 // css task; sass is autocompiled thanks to atom.io package
 gulp.task('css', function(){
@@ -74,6 +99,8 @@ gulp.task('default', ['nunjucks','css','js','watch','browser-sync']);
 
 /*** deployment tasks
 */
+
+// TO DO: fix my deploy tasks
 
 // copy production-ready directories & files to live site
 gulp.task('copy', function(){
