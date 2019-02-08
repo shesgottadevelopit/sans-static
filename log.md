@@ -15,6 +15,51 @@ Date: [insert dates]
 
 </details>
 --->
+### Entry #003
+Date: Thursday 02/07/2019
+
+**Notes:**
+I'm back bishes! So picking up where I left off when figuring out how to pass arguments from the command line into my gulp tasks. When I could not sleep last night I found some resources to help me strategize on how to make this happen. [Autumn Lansing](https://autumnlansing.com/articles/static-site-generators) had the same thought I did about compiling single pages instead of the entire site.
+
+So far I've created a `test.js` file to _test_ my assumptions and code. I'm running it with `node test.js`.
+
+Also some pseudocode here:
+
+```javascript
+// TO DO: nunjucks to html single page compilation | gulp page --page <file.ext>
+gulp.task('page', function() {
+
+    // grab the arguments & stores the position of --page in the array
+    var args = process.argv.indexOf("--page");
+    console.log(args);
+    console.log(process.argv);
+
+
+    // count the number of arguments and if they're greater than 1, start looping through
+
+    // check if the file exists in the directory
+
+    // if it does exist, store the file/path in a variable
+
+    // plug that variable into the task below
+
+
+    // gets .nunjucks file(s) in the directory
+    return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
+    //renders files using the templates located in this directory
+    .pipe(nunjucksRender({
+        path: [
+            'src/templates/layouts', // the main template
+            'src/templates/partials', // partials
+            'src/templates/pages'] // pages that will be based on the main template & partials
+    })).on('error', gutil.log) // checks and logs errors
+    //outputs the files into the src home folder
+    .pipe(gulp.dest('src'))
+    .pipe(browserSync.reload({stream: true}));
+});
+
+```
+
 
 ### Entry #002
 Date: Wednesday 02/06/2019

@@ -1,0 +1,398 @@
+{# markup.nunjucks #}
+{% set title = "Markup Page" %}
+{% extends "main.nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
+
+{% block content %}
+<!-- main page content -->
+
+<main class="markup">
+    <section id="otu">
+    <div>
+	<h2>Headings</h2>
+        <h1>Header one</h1>
+        <h2>Header two</h2>
+        <h3>Header three</h3>
+        <h4>Header four</h4>
+        <h5>Header five</h5>
+        <h6>Header six</h6>
+        <h2>Blockquotes</h2>
+
+        <p>Single line blockquote:</p>
+        <blockquote><p>Stay hungry. Stay foolish.</p></blockquote>
+        <p>Multi line blockquote with a cite reference:</p>
+        <blockquote><p>People think focus means saying yes to the thing you&#8217;ve got to focus on. But that&#8217;s not what it means at all. It means saying no to the hundred other good ideas that there are. You have to pick carefully. I&#8217;m actually as proud of the things we haven&#8217;t done as the things I have done. Innovation is saying no to 1,000 things. </p></blockquote>
+        <p><cite>Steve Jobs</cite> &#8211; Apple Worldwide Developers&#8217; Conference, 1997</p>
+
+    <h2>Tables</h2>
+        <table>
+        <thead>
+        <tr>
+        <th>Employee</th>
+        <th>Salary</th>
+        <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <th><a href="http://example.org/">John Doe</a></th>
+        <td>$1</td>
+        <td>Because that&#8217;s all Steve Jobs needed for a salary.</td>
+        </tr>
+        <tr>
+        <th><a href="http://example.org/">Jane Doe</a></th>
+        <td>$100K</td>
+        <td>For all the blogging she does.</td>
+        </tr>
+        <tr>
+        <th><a href="http://example.org/">Fred Bloggs</a></th>
+        <td>$100M</td>
+        <td>Pictures are worth a thousand words, right? So Jane x 1,000.</td>
+        </tr>
+        <tr>
+        <th><a href="http://example.org/">Jane Bloggs</a></th>
+        <td>$100B</td>
+        <td>With hair like that?! Enough said&#8230;</td>
+        </tr>
+        </tbody>
+        </table>
+    <h2>Definition Lists</h2>
+        <dl>
+        <dt>Definition List Title</dt>
+        <dd>Definition list division.</dd>
+        <dt>Startup</dt>
+        <dd>A startup company or startup is a company or temporary organization designed to search for a repeatable and scalable business model.</dd>
+        <dt>#dowork</dt>
+        <dd>Coined by Rob Dyrdek and his personal body guard Christopher &#8220;Big Black&#8221; Boykins, &#8220;Do Work&#8221; works as a self motivator, to motivating your friends.</dd>
+        <dt>Do It Live</dt>
+        <dd>I&#8217;ll let Bill O&#8217;Reilly will <a title="We'll Do It Live" href="https://www.youtube.com/watch?v=O_HyZ5aW76c">explain</a> this one.</dd>
+        </dl>
+
+    <h2>Unordered Lists (Nested)</h2>
+        <ul>
+        <li>List item one
+        <ul>
+        <li>List item one
+        <ul>
+        <li>List item one</li>
+        <li>List item two</li>
+        <li>List item three</li>
+        <li>List item four</li>
+        </ul>
+        </li>
+        <li>List item two</li>
+        <li>List item three</li>
+        <li>List item four</li>
+        </ul>
+        </li>
+        <li>List item two</li>
+        <li>List item three</li>
+        <li>List item four</li>
+        </ul>
+    <h2>Ordered List (Nested)</h2>
+        <ol>
+        <li>List item one
+        <ol>
+        <li>List item one
+        <ol>
+        <li>List item one</li>
+        <li>List item two</li>
+        <li>List item three</li>
+        <li>List item four</li>
+        </ol>
+        </li>
+        <li>List item two</li>
+        <li>List item three</li>
+        <li>List item four</li>
+        </ol>
+        </li>
+        <li>List item two</li>
+        <li>List item three</li>
+        <li>List item four</li>
+        </ol>
+
+    <h2>Nested and Mixed List</h2>
+        <p>Nested and mixed lists are an interesting beast. It&#8217;s a corner case to make sure that</p>
+        <ul>
+        <li><span style="line-height:1.714285714;font-size:1rem;">Lists within lists do not break the ordered list numbering order</span></li>
+        <li><span style="line-height:1.714285714;font-size:1rem;">Your list styles go deep enough.</span></li>
+        </ul>
+        <h3>Ordered &#8211; Unordered &#8211; Ordered</h3>
+        <ol>
+        <li>ordered item</li>
+        <li>ordered item
+        <ul>
+        <li><strong>unordered</strong></li>
+        <li><strong>unordered</strong>
+        <ol>
+        <li>ordered item</li>
+        <li>ordered item</li>
+        </ol>
+        </li>
+        </ul>
+        </li>
+        <li>ordered item</li>
+        <li>ordered item</li>
+        </ol>
+        <h3>Ordered &#8211; Unordered &#8211; Unordered</h3>
+        <ol>
+        <li>ordered item</li>
+        <li>ordered item
+        <ul>
+        <li><strong>unordered</strong></li>
+        <li><strong>unordered</strong>
+        <ul>
+        <li>unordered item</li>
+        <li>unordered item</li>
+        </ul>
+        </li>
+        </ul>
+        </li>
+        <li>ordered item</li>
+        <li>ordered item</li>
+        </ol>
+        <h3>Unordered &#8211; Ordered &#8211; Unordered</h3>
+        <ul>
+        <li>unordered item</li>
+        <li>unordered item
+        <ol>
+        <li>ordered</li>
+        <li>ordered
+        <ul>
+        <li>unordered item</li>
+        <li>unordered item</li>
+        </ul>
+        </li>
+        </ol>
+        </li>
+        <li>unordered item</li>
+        <li>unordered item</li>
+        </ul>
+        <h3>Unordered &#8211; Unordered &#8211; Ordered</h3>
+        <ul>
+        <li>unordered item</li>
+        <li>unordered item
+        <ul>
+        <li>unordered</li>
+        <li>unordered
+        <ol>
+        <li><strong>ordered item</strong></li>
+        <li><strong>ordered item</strong></li>
+        </ol>
+        </li>
+        </ul>
+        </li>
+        <li>unordered item</li>
+        <li>unordered item</li>
+        </ul>
+
+    <h2>HTML Tags</h2>
+        <p>These supported tags come from the WordPress.com code <a title="Code" href="http://en.support.wordpress.com/code/">FAQ</a>.</p>
+        <p><strong>Address Tag</strong></p>
+        <address>1 Infinite Loop<br />
+        Cupertino, CA 95014<br />
+        United States</address>
+        <p><strong>Anchor Tag (aka. Link)</strong></p>
+        <p>This is an example of a <a title="Apple" href="http://apple.com">link</a>.</p>
+        <p><strong>Abbreviation Tag</strong></p>
+        <p>The abbreviation <abbr title="Seriously">srsly</abbr> stands for &#8220;seriously&#8221;.</p>
+        <p><strong>Acronym Tag (<em>deprecated in HTML5</em>)</strong></p>
+        <p>The acronym <acronym title="For The Win">ftw</acronym> stands for &#8220;for the win&#8221;.</p>
+        <p><strong>Big Tag <strong>(<em>deprecated in HTML5</em>)</strong></strong></p>
+        <p>These tests are a <big>big</big> deal, but this tag is no longer supported in HTML5.</p>
+        <p><strong>Cite Tag</strong></p>
+        <p>&#8220;Code is poetry.&#8221; &#8212;<cite>Automattic</cite></p>
+        <p><strong>Code Tag</strong></p>
+        <p>You will learn later on in these tests that <code>word-wrap: break-word;</code> will be your best friend.</p>
+        <p><strong>Delete Tag</strong></p>
+        <p>This tag will let you <del>strikeout text</del>, but this tag is no longer supported in HTML5 (use the <code>&lt;strike&gt;</code> instead).</p>
+        <p><strong>Emphasize Tag</strong></p>
+        <p>The emphasize tag should <em>italicize</em> text.</p>
+        <p><strong>Insert Tag</strong></p>
+        <p>This tag should denote <ins>inserted</ins> text.</p>
+        <p><strong>Keyboard Tag</strong></p>
+        <p>This scarcely known tag emulates <kbd>keyboard text</kbd>, which is usually styled like the <code>&lt;code&gt;</code> tag.</p>
+        <p><strong>Preformatted Tag</strong></p>
+        <p>This tag styles large blocks of code.</p>
+        <pre>.post-title {
+        	margin: 0 0 5px;
+        	font-weight: bold;
+        	font-size: 38px;
+        	line-height: 1.2;
+        	and here's a line of some really, really, really, really long text, just to see how the PRE tag handles it and to find out how it overflows;
+        }</pre>
+        <p><strong>Quote Tag</strong></p>
+        <p><q>Developers, developers, developers&#8230;</q> &#8211;Steve Ballmer</p>
+        <p><strong>Strike Tag <strong>(<em>deprecated in HTML5</em>)</strong></strong></p>
+        <p>This tag shows <span style="text-decoration:line-through;">strike-through text</span></p>
+        <p><strong>Strong Tag</strong></p>
+        <p>This tag shows <strong>bold<strong> text.</strong></strong></p>
+        <p><strong>Subscript Tag</strong></p>
+        <p>Getting our science styling on with H<sub>2</sub>O, which should push the &#8220;2&#8221; down.</p>
+        <p><strong>Superscript Tag</strong></p>
+        <p>Still sticking with science and Isaac Newton&#8217;s E = MC<sup>2</sup>, which should lift the 2 up.</p>
+        <p><strong>Teletype Tag <strong>(<em>deprecated in HTML5</em>)</strong></strong></p>
+        <p>This rarely used tag emulates <tt>teletype text</tt>, which is usually styled like the <code>&lt;code&gt;</code> tag.</p>
+        <p><strong>Variable Tag</strong></p>
+        <p>This allows you to denote <var>variables</var>.</p>
+	</div>
+    </section>
+
+    <section id="abuo">
+    <div>
+		<h3>Default</h3>
+        <p>This is a paragraph. It should not have any alignment of any kind. It should just flow like you would normally expect. Nothing fancy. Just straight up text, free flowing, with love. Completely neutral and not picking a side or sitting on the fence. It just is. It just freaking is. It likes where it is. It does not feel compelled to pick a side. Leave him be. It will just be better that way. Trust me.</p>
+        <h3>Left Align</h3>
+        <p style="text-align:left;">This is a paragraph. It is left aligned. Because of this, it is a bit more liberal in it&#8217;s views. It&#8217;s favorite color is green. Left align tends to be more eco-friendly, but it provides no concrete evidence that it really is. Even though it likes share the wealth evenly, it leaves the equal distribution up to justified alignment.</p>
+        <h3>Center Align</h3>
+        <p style="text-align:center;">This is a paragraph. It is center aligned. Center is, but nature, a fence sitter. A flip flopper. It has a difficult time making up its mind. It wants to pick a side. Really, it does. It has the best intentions, but it tends to complicate matters more than help. The best you can do is try to win it over and hope for the best. I hear center align does take bribes.</p>
+        <h3>Right Align</h3>
+        <p style="text-align:right;">This is a paragraph. It is right aligned. It is a bit more conservative in it&#8217;s views. It&#8217;s prefers to not be told what to do or how to do it. Right align totally owns a slew of guns and loves to head to the range for some practice. Which is cool and all. I mean, it&#8217;s a pretty good shot from at least four or five football fields away. Dead on. So boss.</p>
+        <h3>Justify Align</h3>
+        <p style="text-align:justify;">This is a paragraph. It is justify aligned. It gets really mad when people associate it with Justin Timberlake. Typically, justified is pretty straight laced. It likes everything to be in it&#8217;s place and not all cattywampus like the rest of the aligns. I am not saying that makes it better than the rest of the aligns, but it does tend to put off more of an elitist attitude.</p>
+    </div>
+    </section>
+
+    <section id="ato">
+    	<p>Putting special characters in the title should have no adverse effect on the layout or functionality.</p>
+        <p>Special characters in the post title have been known to cause issues with JavaScript when it is minified, especially in the admin when editing the post itself (ie. issues with metaboxes, media upload, etc.).</p>
+        <h2>Latin Character Tests</h2>
+        <p>This is a test to see if the fonts used in this theme support basic Latin characters.</p>
+        <table>
+        <tbody>
+        <tr>
+        <td>!</td>
+        <td>&#8220;</td>
+        <td>#</td>
+        <td>$</td>
+        <td>%</td>
+        <td>&amp;</td>
+        <td>&#8216;</td>
+        <td>(</td>
+        <td>)</td>
+        <td>*</td>
+        </tr>
+        <tr>
+        <td>+</td>
+        <td>,</td>
+        <td>&#8211;</td>
+        <td>.</td>
+        <td>/</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        </tr>
+        <tr>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>:</td>
+        <td>;</td>
+        <td>&gt;</td>
+        <td>=</td>
+        <td>&lt;</td>
+        </tr>
+        <tr>
+        <td>?</td>
+        <td>@</td>
+        <td>A</td>
+        <td>B</td>
+        <td>C</td>
+        <td>D</td>
+        <td>E</td>
+        <td>F</td>
+        <td>G</td>
+        <td>H</td>
+        </tr>
+        <tr>
+        <td>I</td>
+        <td>J</td>
+        <td>K</td>
+        <td>L</td>
+        <td>M</td>
+        <td>N</td>
+        <td>O</td>
+        <td>P</td>
+        <td>Q</td>
+        <td>R</td>
+        </tr>
+        <tr>
+        <td>S</td>
+        <td>T</td>
+        <td>U</td>
+        <td>V</td>
+        <td>W</td>
+        <td>X</td>
+        <td>Y</td>
+        <td>Z</td>
+        <td>[</td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>]</td>
+        <td>^</td>
+        <td>_</td>
+        <td>`</td>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+        <td>d</td>
+        <td>e</td>
+        <td>f</td>
+        </tr>
+        <tr>
+        <td>g</td>
+        <td>h</td>
+        <td>i</td>
+        <td>j</td>
+        <td>k</td>
+        <td>l</td>
+        <td>m</td>
+        <td>n</td>
+        <td>o</td>
+        <td>p</td>
+        </tr>
+        <tr>
+        <td>q</td>
+        <td>r</td>
+        <td>s</td>
+        <td>t</td>
+        <td>u</td>
+        <td>v</td>
+        <td>w</td>
+        <td>x</td>
+        <td>y</td>
+        <td>z</td>
+        </tr>
+        <tr>
+        <td>{</td>
+        <td>|</td>
+        <td>}</td>
+        <td>~</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        </tbody>
+        </table>
+    </section>
+
+
+    <section id="ano">
+        <div class="">
+        <h2>Heading 2</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque semper maximus justo, quis elementum tellus eleifend nec. Suspendisse ac ex nibh. Morbi gravida pulvinar vehicula. Proin euismod augue at pretium consectetur. Nulla at efficitur mauris. In at pretium urna, et fermentum dui. Sed semper bibendum volutpat.
+
+        In rutrum nunc non tristique efficitur. Phasellus mauris diam, ullamcorper quis finibus sit amet, venenatis nec enim. Vivamus ut quam volutpat, facilisis diam non, accumsan nisl. Nullam malesuada justo orci. Nulla facilisi. Ut gravida elit quis enim eleifend, a viverra odio rhoncus. Cras vitae ante imperdiet, consequat arcu quis, interdum lacus.</p>
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}

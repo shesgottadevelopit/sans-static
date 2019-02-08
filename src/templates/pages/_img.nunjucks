@@ -1,3 +1,10 @@
+{# index.nunjucks #}
+{% set title = "Images" %}
+{% extends "main.nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
+
+{% block content %}
+<main>
+<!-- main page content -->
 <article>
     <p>Welcome to image alignment! The best way to demonstrate the ebb and flow of the various image positioning options is to nestle them snuggly among an ocean of words. Grab a paddle and let&#8217;s get started.</p>
     <p>On the topic of alignment, it should be noted that users can choose from the options of <em>None</em>, <em>Left</em>, <em>Right, </em>and <em>Center</em>. In addition, they also get the options of <em>Thumbnail</em>, <em>Medium</em>, <em>Large</em> &amp; <em>Fullsize</em>.</p>
@@ -33,3 +40,7 @@
     	</div>
 
 </article>
+
+
+</main>
+{% endblock %}

@@ -51,21 +51,27 @@ gulp.task('nunjucks', function() {
     .pipe(browserSync.reload({stream: true}));
 });
 
-// TO DO: nunjucks to html single page compilation
-gulp.task('singlepage', function() {
+// TO DO: nunjucks to html single page compilation | gulp single --page <file.ext>
+gulp.task('test', function() {
+
+    // grab the arguments & stores the position of --page in the array
+    var args = process.argv.indexOf("--page");
+    console.log(args);
+    console.log(process.argv);
+
 
     // gets .nunjucks file(s) in the directory
-    return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
-    //renders files using the templates located in this directory
-    .pipe(nunjucksRender({
-        path: [
-            'src/templates/layouts', // the main template
-            'src/templates/partials', // partials
-            'src/templates/pages'] // pages that will be based on the main template & partials
-    })).on('error', gutil.log) // checks and logs errors
-    //outputs the files into the src home folder
-    .pipe(gulp.dest('src'))
-    .pipe(browserSync.reload({stream: true}));
+    // return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
+    // //renders files using the templates located in this directory
+    // .pipe(nunjucksRender({
+    //     path: [
+    //         'src/templates/layouts', // the main template
+    //         'src/templates/partials', // partials
+    //         'src/templates/pages'] // pages that will be based on the main template & partials
+    // })).on('error', gutil.log) // checks and logs errors
+    // //outputs the files into the src home folder
+    // .pipe(gulp.dest('src'))
+    // .pipe(browserSync.reload({stream: true}));
 });
 
 
