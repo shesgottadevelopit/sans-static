@@ -3,18 +3,17 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var nunjucksRender = require('gulp-nunjucks-render');
-// var nunjucksRender = require('gulp-nunjucks-api')
 var merge = require('merge-stream');
 var gutil = require('gulp-util');
 var cleanbuild = require('del');
-var nunjucks = require('nunjucks');
-var gulpnunjucks = require('gulp-nunjucks')
 var markdown = require('nunjucks-markdown');
-var markdownIt = require('markdown-it')({html: true});
-var gulpMarkdownIt = require('gulp-markdownit');
-var gulpMdIt = require('gulp-markdown-it');
+var markdownIt = require('markdown-it');
 
 //var ftp = require('vinyl-ftp');
+//var nunjucks = require('nunjucks');
+//var gulpnunjucks = require('gulp-nunjucks')
+// var gulpMarkdownIt = require('gulp-markdownit');
+// var gulpMdIt = require('gulp-markdown-it');
 
 
 
@@ -46,19 +45,22 @@ gulp.task('browser-sync', function() {
 // nunjucks compilation to html
 gulp.task('nunjucks', function() {
 
-    nunjucksMarkdownRender = function (env) {
-        var md = markdownIt.render.bind(markdownIt);
-        markdown.register(env, md);
-    // referenced my markdownIt variable
+    // register markdown parser via plugin
+    var nunjucksMarkdownRender = function (env) {
+        var md = new markdownIt({html: true, linkify: true,
+          typographer: true})
+        var renderer = md.render.bind(md);
+        markdown.register(env,renderer);
     }
 
     // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
     //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
     .pipe(nunjucksRender({
-        autoescape: true,
         manageEnv: nunjucksMarkdownRender,
-        //env: env,
+        envOptions: {
+            autoescape: false
+        },
         path: [
             'src/templates/layouts', // the main template
             'src/templates/partials', // partials

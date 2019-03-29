@@ -5,18 +5,14 @@
 {% block content %}
 <main>
 <!-- main page content -->
-{% markdown %}
-# h1 Heading
-## h2 Heading
-### h3 Heading
-#### h4 Heading
-##### h5 Heading
-###### h6 Heading
+<h1>THIS IS MY TEST hompage</h1>
 
-Test
+<ul>
+    <li><a href="404.html">404 page</a></li>
+    <li><a href="markdown.html">Markdown Test Page</a></li>
+    <li><a href="markup.html">Markup Test Page</a></li>
+    <li><a href="md-partial.html">Markdown Partial Test Page</a></li>
+</ul>
 
-{% endmarkdown %}
-<br>
-Test 2
 </main>
 {% endblock %}

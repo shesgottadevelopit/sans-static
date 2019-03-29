@@ -19,8 +19,17 @@ Date: [insert dates]
 ### Entry No. 005
 Date: Thursday 03/28/2019
 
+**Second Update:**
+Soooo I figured it out and this is why I need to spend more time reading documentation (although sometimes it is not clear that that would've helped). I mean, none of my errors had anything to do with what I figured out.
+
+So I went back to the drawing board and decided to see if I troubleshoot from the code that was working but not doing what I wanted. It was outputting actual HTML tags and not formatted text. I then realized that maybe I could figure out a way to change autoescaping, since it seemed like Nunjucks was escaping special characters and TADA.. that was it. I actually tried that previously but I wasn't adding the option to the `nunjucksRender` function correctly. Two days later, we've got the markdown and nunjucks working as I imagined.
+
+Although I've got this working, I haven't figured out the why although I know it has something to do with `.bind` and `this`, thanks to [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind).
+
+I'm going to commit these changes. Wow what an eventful night.
+
 **Update:**
-I'm going to take a break. Just a little disappointed. Option 2 w/`gulp-nunjucks-render` is the closest I get to a working version of this. Otherwise, I think I'll have to not use these gulp nunjucks plugins. 
+I'm going to take a break. Just a little disappointed. Option 2 w/`gulp-nunjucks-render` is the closest I get to a working version of this. Otherwise, I think I'll have to not use these gulp nunjucks plugins.
 
 **Notes:**
 This should actually be entry no. 006 but I got really busy/exhausted trying to figure out how to get this markdown nunjucks thing to play well together. Decided to document all the fixes I've tried here for reference because right now I'm trying a lot.

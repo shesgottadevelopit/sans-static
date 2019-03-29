@@ -1,13 +1,17 @@
-# Pink Lemonade (sans) HTML Boilerplate
+# Pink Lemonade Static Site Generator
 
 ## Summary
-An HTML and CSS boilerplate project. This is also a learning exercise in creating a more robust static site generator, allowing for markdown usage and front matter incorporation in pages.
+An HTML and CSS boilerplate project. This is also a learning exercise in creating a static site generator, allowing for markdown usage and front matter incorporation in pages.
+
+## Demystifying SSGs
+What is a static site generator? "The basic concept of a static site generator (aka static site engine) is simple: take dynamic content and data and generate static HTML/JavaScript/CSS files that can be deployed to the server."[Source](https://www.oreilly.com/ideas/static-site-generators)
+
 
 ## Requirements
 - [ ] Read a global site config file that include site title, description
 - [ ] Read Nunjucks files
 - [ ] Read Markdown files
-- [ ] Read data from JSON or YAML files. This would include a list of posts or pages or anything I'd need to iterate over and the source of this information would come from actual files
+- [ ] Read data from JSON or YAML files. This would include a list of posts or pages or anything I'd need to iterate over and the source of this information would come from actual files. Supports file-based data formats. "File-based data formats are useful for structuring any sort of arbitrary data independent of its display. This allows the designer or developer to both reuse the data in multiple places or change the way it is displayed without duplicating or modifying the original data." Examples include JSON, YAML, TOML.
 - [ ] Compile the Markdown files (with the Frontmatter) and insert them into the Nunjucks files
 - [ ] Compile the Nunjucks files and generate HTML pages
 - [ ] Clean up URLs
@@ -31,7 +35,7 @@ An HTML and CSS boilerplate project. This is also a learning exercise in creatin
 - [ ] browserSync
 - [ ] fs
 - [ ] fs-extra ?? Reason: Adds new functions to Node’s native file-system module (fs) and add promise support for the existing ones.
-- [ ] marked or markdown-in ?? Compile Markdown to HTML.
+- [ ] marked or markdown-it ?? Compile Markdown to HTML.
 - [ ] front-matter ?? Extract meta data (front matter) from documents.
 
 
