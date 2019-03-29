@@ -3,9 +3,17 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var nunjucksRender = require('gulp-nunjucks-render');
+// var nunjucksRender = require('gulp-nunjucks-api')
 var merge = require('merge-stream');
 var gutil = require('gulp-util');
 var cleanbuild = require('del');
+var nunjucks = require('nunjucks');
+var gulpnunjucks = require('gulp-nunjucks')
+var markdown = require('nunjucks-markdown');
+var markdownIt = require('markdown-it')({html: true});
+var gulpMarkdownIt = require('gulp-markdownit');
+var gulpMdIt = require('gulp-markdown-it');
+
 //var ftp = require('vinyl-ftp');
 
 
@@ -34,18 +42,29 @@ gulp.task('browser-sync', function() {
 
 });
 
+
 // nunjucks compilation to html
 gulp.task('nunjucks', function() {
+
+    nunjucksMarkdownRender = function (env) {
+        var md = markdownIt.render.bind(markdownIt);
+        markdown.register(env, md);
+    // referenced my markdownIt variable
+    }
 
     // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
     //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
     .pipe(nunjucksRender({
+        autoescape: true,
+        manageEnv: nunjucksMarkdownRender,
+        //env: env,
         path: [
             'src/templates/layouts', // the main template
             'src/templates/partials', // partials
-            'src/templates/pages'] // pages that will be based on the main template & partials
-    })).on('error', gutil.log) // checks and logs errors
+            'src/templates/pages'], // pages that will be based on the main template & partials
+    }))
+    .on('error', gutil.log) // checks and logs errors
     //outputs the files into the src home folder
     .pipe(gulp.dest('src'))
     .pipe(browserSync.reload({stream: true}));

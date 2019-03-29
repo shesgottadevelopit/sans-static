@@ -5,7 +5,7 @@ The purpose of this document is to track my progress and document my process for
 <!---
 <details><summary>template for entries</summary>
 
-### Entry #00x
+### Entry No. 00x
 Date: [insert dates]
 
 **Notes:**
@@ -15,7 +15,108 @@ Date: [insert dates]
 
 </details>
 --->
-### Entry #003
+
+### Entry No. 005
+Date: Thursday 03/28/2019
+
+**Update:**
+I'm going to take a break. Just a little disappointed. Option 2 w/`gulp-nunjucks-render` is the closest I get to a working version of this. Otherwise, I think I'll have to not use these gulp nunjucks plugins. 
+
+**Notes:**
+This should actually be entry no. 006 but I got really busy/exhausted trying to figure out how to get this markdown nunjucks thing to play well together. Decided to document all the fixes I've tried here for reference because right now I'm trying a lot.
+
+A few things are happening: I'm getting an unknown block error or it doesn't compile the markdown to HTML at all, it renders as HTML tags.
+
+1) [Unknown block tag error with gulp-nunjucks-render and nunjucks-markdown](https://github.com/zephraph/nunjucks-markdown/issues/25)
+    - Tried this fix with `gulp-nunjucks-render` and `gulp-nunjucks-api`. The former renders `[object Object]` but no content from the markdown block, and no error. The latter returns an error like "Template render error: (/mnt/c/sgdi/www/myProjects/pink-lemonade/sans-base/src/templates/pages/index.nunjucks) [Line 8, Column 2]\n  unknown block tag: markdown\n"
+    - I also try it with all of the versions of markdown I have installed: `markdown-it`, `gulp-markdownit`, and `gulp-markdown-it`
+    - `markdown-it` gives an error of: "Error: Wrong `markdown-it` preset"
+
+```js
+var nunjucksRender = require('gulp-nunjucks-render');
+// var nunjucksRender = require('gulp-nunjucks-api')
+var markdown = require('nunjucks-markdown');
+var markdownIt = require('markdown-it');
+var gulpMarkdownIt = require('gulp-markdownit');
+var gulpMdIt = require('gulp-markdown-it');
+
+nunjucksMarkdownRender = function (env) {
+    // const md = markdownIt().render.bind(markdownIt());
+    // var md = new markdownIt();
+    markdown.register(env, gulpMdIt);
+
+}
+
+// nunjucks compilation to html
+gulp.task('nunjucks', function() {
+
+    // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
+    return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
+    //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
+    .pipe(nunjucksRender({
+        manageEnv: nunjucksMarkdownRender,
+        path: [
+            'src/templates/layouts', // the main template
+            'src/templates/partials', // partials
+            'src/templates/pages'], // pages that will be based on the main template & partials
+    }))
+    .on('error', gutil.log) // checks and logs errors
+    //outputs the files into the src home folder
+    .pipe(gulp.dest('src'))
+    .pipe(browserSync.reload({stream: true}));
+});
+
+```
+2) [Micro static site generator with in-markdown templating using Gulp & Nunjucks ](https://gist.github.com/seaneking/aef8db386a8415148517cebad505d877)
+    - Tried this with `gulp-nunjucks-render` and it spits out the HTML tags onto the page. I get the block error again with `gulp-nunjucks-api`
+
+```js
+nunjucksMarkdownRender = function (env) {
+    var md = markdownIt.render.bind(markdownIt);
+    markdown.register(env, md);
+// referenced my markdownIt variable
+}
+```
+
+3)[Investigate problems with gulp-nunjucks-render](https://github.com/zephraph/nunjucks-markdown/issues/7)
+    - Tried with `gulp-nunjucks-api` and `gulp-nunjucks-render` and got another unknown block error.
+
+```js
+gulp.task('nunjucks', function() {
+
+    var env = nunjucksRender.nunjucks.configure('src/templates')
+    markdown.register(env)
+
+})
+```
+4) [Custom Gulp Markdown Setup] (https://gist.github.com/kerryhatcher/1382950af52f3082ecdc668bba5aa11b)
+    - `gulp-nunjucks-render` & `gulp-nunjucks-api` spit out an unknown block error without compiling.
+
+```js
+var env = new nunjucksRender.nunjucks.Environment(new nunjucksRender.nunjucks.FileSystemLoader('src/templates/'));
+markdown.register(env,markdownIt)
+```
+
+### Entry No. 004
+Date: Tuesday 03/26/2019
+
+**Notes:**
+I'm back bishes! Again, hahaha. I actually took a trip and got sick and now I'm trying to pick up the pieces of my life for the last 3-4 weeks, but yes I'm still kicking.
+
+I decided to sort through my bookmarks which led me to sorting through all the bookmarks I have related to creating a static site generator. I did that over the weekend while recovering from this mystery bug going around and I'm ready to get back into things. I think I may actually have to use my "online network" to work through my questions and any things keeping me stuck in this place of no progress.
+
+I'm going to take a step back. Instead of focusing on how I'm going to pass in filenames for single page processing, I'm going to figure out how to process markdown. My current nunjucks setup only renders Nunjucks to HTML and I want it to render Nunjucks and Markdown to HTML. After I figure that out, I'll need to figure out how to incorporate frontmatter into the mix. This decision is PROGRESS. Decided on this after listening to a podcast that said one of the biggest mistakes people make with debugging is not isolating the problems. I flipped that and decided to isolate functionality to help me along with the project. Bite size progress.
+
+I've seen the following markdown parsers mentioned but apparently there are more.
+- Marked
+- Markdown-It
+
+Each parser has different features, apparently code blocks are not native to Markdown and a newer feature. Anyway, which parser I use for this project will now likely depend on what features it has built-in to help me. Some parsers have syntax for metadata and that would be awesome, a 2-for-1.
+
+Anyway, I'm going to install the following packages and configure them, see what happens.
+
+
+### Entry No. 003
 Date: Thursday 02/07/2019
 
 **Notes:**
@@ -30,8 +131,10 @@ Also some pseudocode here:
 gulp.task('page', function() {
 
     // grab the arguments & stores the position of --page in the array
-    var args = process.argv.indexOf("--page");
+    var argsIndex = process.argv.indexOf("--page");
+    var args = process.argv.slice(3);
     console.log(args);
+    console.log(argsIndex)
     console.log(process.argv);
 
 
@@ -61,7 +164,7 @@ gulp.task('page', function() {
 ```
 
 
-### Entry #002
+### Entry No. 002
 Date: Wednesday 02/06/2019
 
 **Notes:**
@@ -114,7 +217,7 @@ Now my testing for that part is done. Deciding if this is a good place to pause 
 I already copied over the `gulp nunjucks` function to a new one for my single page compilation task, so I can pick up later on that.
 
 
-### Entry #001
+### Entry No. 001
 Date: Wednesday 01/30/2019
 
 **Notes:**

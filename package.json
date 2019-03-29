@@ -7,5 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "del": "^4.0.0",
+    "gulp": "^3.9.1",
+    "gulp-markdown-it": "^0.1.1",
+    "gulp-markdownit": "^1.0.3",
+    "gulp-nunjucks": "^4.0.0",
+    "gulp-nunjucks-api": "^0.8.0",
+    "gulp-nunjucks-render": "^2.2.3",
+    "markdown-it": "^8.4.2",
+    "merge-stream": "^1.0.1",
+    "nunjucks": "^3.2.0",
+    "nunjucks-markdown": "^2.0.1"
+  }
 }
