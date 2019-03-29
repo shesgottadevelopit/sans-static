@@ -16,6 +16,26 @@ Date: [insert dates]
 </details>
 --->
 
+### Entry No. 006
+Date: Friday 03/29/2019
+
+**Notes:**
+I'm so glad I was able to wrap up that tasks for rendering Markdown and Nunjucks at once. I will definitely circle back to better understand `.bind` and why what I was doing wasn't working.
+
+#### Frontmatter
+Next thing I'll focus on is figuring out how to set up a global config file and using front-matter... and figuring out why I'm even doing that. It just keeps coming up in my research.
+- Figure out the correct way to format front matter based on whatever data format I decide on
+- Update my test post markdown file using that correct format
+- Write the function for doing whatever I need to do to insert frontmatter from that page into my HTML markup
+
+#### Markdown post compilation - automated
+The other thing I want to do is think of an easy way to compile posts. While I'll have pages that will mostly using the `.nunjucks` extension. Something like:
+- Create a post in `templates/posts`, this will always have a `.md` extension.
+- Create a layout for posts in `templates/layouts` and maybe name it something like `post.nunjucks`
+- Create a function that compiles a list of all the posts and then loops over that list so that it would generate a page for each post, based on the `post.nunjucks` layout.
+- The only thing is I'll probably need to create a page for this type of page under `templates/pages`, and name it `article.nunjucks`. Not sure yet on that or if using `post.nunjucks` will be enough
+
+
 ### Entry No. 005
 Date: Thursday 03/28/2019
 

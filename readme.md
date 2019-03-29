@@ -1,4 +1,4 @@
-# Pink Lemonade Static Site Generator
+# Pink Lemonade/Sans Static Site Generator
 
 ## Summary
 An HTML and CSS boilerplate project. This is also a learning exercise in creating a static site generator, allowing for markdown usage and front matter use in pages.
@@ -21,7 +21,7 @@ What is a static site generator? "The basic concept of a static site generator (
 What is there to do?
 
 **Documention**
-- [ ] Write our plan for developing this static site generator
+- [ ] Write our plan for developing this static site generator: I'm regularly updating this in the log where most of my logic and pseudocode originates.
 
 **Dependencies**
 Check the `package.json` file for a complete list. This is just my planning list
