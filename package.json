@@ -12,6 +12,7 @@
     "browser-sync": "^2.26.3",
     "del": "^4.0.0",
     "gulp": "^3.9.1",
+    "gulp-gray-matter": "^3.0.1",
     "gulp-markdown-it": "^0.1.1",
     "gulp-markdownit": "^1.0.3",
     "gulp-nunjucks": "^4.0.0",

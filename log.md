@@ -35,6 +35,89 @@ The other thing I want to do is think of an easy way to compile posts. While I'l
 - Create a function that compiles a list of all the posts and then loops over that list so that it would generate a page for each post, based on the `post.nunjucks` layout.
 - The only thing is I'll probably need to create a page for this type of page under `templates/pages`, and name it `article.nunjucks`. Not sure yet on that or if using `post.nunjucks` will be enough
 
+**About Frontmatter**
+Found a few resources, a lot related to Jekyll (which I've never used) but I'm sure is useful in getting me to understand what is is and where it fits in.
+- [SimplePrimate on YAML](http://simpleprimate.com/blog/front-matter)
+- [Ethan Marcotte on YAML/Jekyll tricks](https://ethanmarcotte.com/wrote/stupid-jekyll-tricks/)
+- [Jekyll on YAML](https://jekyllrb.com/docs/front-matter/)
+- [Cuttlebelle on what is frontmatter](https://github.com/cuttlebelle/website/blob/master/content/documentation/what-is-frontmatter.md)
+- [Cuttlebelle examples](https://cuttlebelle.github.io/website/)
+
+Frontmatter is the data at the front/top of your document. It is typically enclosed between two lines with 3 dashes. Example:
+
+```yaml
+---
+title: My page title
+---
+```
+
+There are other formats for frontmatter including JavaScript, JSON.
+
+```yaml
+---json
+{
+  "title": "My page title"
+}
+---
+## My first header
+
+# or
+
+---js
+{
+  title: "My page title",
+  currentDate: function() {
+    // You can have a JavaScript function here!
+    return (new Date()).toLocaleString();
+  }
+}
+---
+```
+
+This is an example of how frontmatter is processed:
+```markdown
+---
+name: Derek Worthen
+age: 127
+contact:
+  email: email@domain.com
+  address: some location
+pets:
+  - cat
+  - dog
+  - bat
+match: !!js/regexp /pattern/gim
+run: !!js/function function() { }
+---
+Some Other content
+```
+
+Turns into:
+
+```yaml
+{
+    name: 'Derek Worthen',
+    age: 127,
+    contact: { email: 'email@domain.com', address: 'some location' },
+    pets: [ 'cat', 'dog', 'bat' ],
+    match: /pattern/gim,
+    run: [Function],
+    __content: '\nSome Other Content'
+}
+```
+
+So far I have a good understanding of the basics.
+- Using a package/plugin like `gulp-gray-matter` or `yaml-front-matter` you can extract frontmatter from files, especially Markdown files.
+- What I don't understand now is how you get that information back into the nunjucks/HTML page during the rendering process
+- And how else or what else you're using it with
+
+Luckily the `grey-matter` repo has some [tests](https://github.com/jonschlinkert/gray-matter) I'm going to have to try at some point.
+
+StackOverflow has some answers!
+- `gulp-nunjucks-render` and `gulp-grey-matter` both store/access data in the data property of each file that is piped through. [Source](https://stackoverflow.com/questions/36457216/how-do-i-access-the-data-object-created-by-the-gulp-gray-matter-plugin-when-com)
+
+
+Good news is that I've got this working. Probably the easiest package installation ever! Now I need to figure out how to use the frontmatter to define layout. But that is not super important at this stage. **Update:** Figured out how to do that with variables, yay!
 
 ### Entry No. 005
 Date: Thursday 03/28/2019

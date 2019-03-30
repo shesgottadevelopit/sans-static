@@ -1,4 +1,5 @@
 ---
+# This is a full line comment
 title: "Rihanna is the fav"
 date: "1-29-2019"
 url: "/articles/riri-sample"
@@ -24,9 +25,70 @@ collection:
     - name: Talk that Talk
       cost: 2015
       color: yes yes
+makeup:
+    mac: ririheaux
+    mac: ririwoo
+    fenty: stunna
 ---
 
 ## Sex with Me Lyrics
+
+## YAML
+This page returns this data from the frontmatter:
+
+```yaml
+---
+title: "Rihanna is the fav"
+date: "1-29-2019"
+url: "/articles/riri-sample"
+author: badgirlriri
+description:
+template:
+layout:
+tags:
+- fentyxsavage
+- Legends
+- Trailblazer
+albums:
+    - Loud
+    - ANTI
+    - Talk that Talk
+collection:
+    - album: Loud
+      year: 2014
+      certified: yes
+    - name: ANTI
+      cost: 2016
+      color: hell yess
+    - name: Talk that Talk
+      cost: 2015
+      color: yes yes
+makeup:
+    mac: ririheaux
+    mac: ririwoo
+    fenty: stunna
+---
+```
+
+```js
+{ content: 'This is content',
+  data:
+   { foo: 'bar',
+     title: 'Rihanna is the fav',
+     date: '1-29-2019',
+     url: '/articles/riri-sample',
+     author: 'badgirlriri',
+     description: null,
+     template: null,
+     layout: null,
+     tags: [ 'fentyxsavage', 'Legends', 'Trailblazer' ],
+     albums: [ 'Loud', 'ANTI', 'Talk that Talk' ],
+     collection: [ [Object], [Object], [Object] ],
+     makeup: { mac1: 'ririheaux', mac2: 'ririwoo', fenty: 'stunna' } },
+  isEmpty: false,
+  excerpt: '' }
+```
+
 
 ### Albums
 **The represents an array**

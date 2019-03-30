@@ -9,7 +9,7 @@
     <meta name="description" content="{{ description }}">
     <meta name="keywords" content="{{ keywords }}">
     <meta name="author" content="{{ author }}">
-    <title> {{ title }} | Page </title>
+    <title> {{ title }} | Post </title>
 
     <link rel="icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/styles.css">
@@ -22,6 +22,8 @@
             {% block header %}
             {% include "header.nunjucks" %}
             {% endblock %}
+
+            <h2>Post Page Template </h2>
 
         {% block content %}
         {% endblock %}

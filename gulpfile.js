@@ -8,6 +8,7 @@ var gutil = require('gulp-util');
 var cleanbuild = require('del');
 var markdown = require('nunjucks-markdown');
 var markdownIt = require('markdown-it');
+var gulpGrayMatter = require('gulp-gray-matter');
 
 //var ftp = require('vinyl-ftp');
 //var nunjucks = require('nunjucks');
@@ -55,6 +56,12 @@ gulp.task('nunjucks', function() {
 
     // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
+
+    //extract frontmatter
+    .pipe(gulpGrayMatter({
+        //remove: false
+    }))
+
     //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
     .pipe(nunjucksRender({
         manageEnv: nunjucksMarkdownRender,
