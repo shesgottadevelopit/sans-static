@@ -1,6 +1,15 @@
-{# 404.nunjucks #}
-{% set title = "What's the 404?" %}
-{% extends "main.nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
+---
+title: What's the 404?
+description: description
+author: author
+keywords:
+    - keyword
+    - keyword
+layout: main
+---
+
+{% extends layout +  ".nunjucks" %}  {# //this code allows this file to inherit it's structure #}
+
 
 {% block content %}
 <!-- main page content -->

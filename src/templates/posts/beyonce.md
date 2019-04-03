@@ -2,11 +2,11 @@
 # This is a full line comment
 title: "Rihanna is the fav"
 date: "1-29-2019"
-url: "/articles/riri-sample"
+url: "/articles/rihanna.html"
 author: badgirlriri
 description:
 template:
-layout:
+layout: post
 tags:
 - fentyxsavage
 - Legends

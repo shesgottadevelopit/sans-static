@@ -1,17 +1,14 @@
 ---
 title: Markdown Test Page
-description: This is my homepage
-author: badgalriri
+description: description
+author: author
 keywords:
-    - homepage
-    - basic shit
-    - super basic shit
-layout: main.nunjucks
+    - keyword
+    - keyword
+layout: main
 ---
 
-{# markdown.nunjucks #}
-{# {% set title = "Markdown Test" %} #}
-{% extends "main.nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
+{% extends layout +  ".nunjucks" %}  {# //this code allows this file to inherit it's structure #}
 
 {% block content %}
 <!-- main page content -->

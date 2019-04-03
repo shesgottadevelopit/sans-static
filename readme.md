@@ -1,7 +1,7 @@
 # Pink Lemonade/Sans Static Site Generator
 
 ## Summary
-An HTML and CSS boilerplate project. This is also a learning exercise in creating a static site generator, allowing for markdown usage and front matter use in pages.
+An HTML and CSS boilerplate project. This is also a learning exercise in creating a static site generator, allowing for markdown usage and frontmatter use in pages.
 
 ## Demystifying SSGs
 What is a static site generator? "The basic concept of a static site generator (aka static site engine) is simple: take dynamic content and data and generate static HTML/JavaScript/CSS files that can be deployed to the server."[Source](https://www.oreilly.com/ideas/static-site-generators)
@@ -11,21 +11,20 @@ Frontmatter is the data at the front/top of your document. It is typically enclo
 
 
 ## Requirements
-- [ ] Read a global site config file that include site title, description
+- [x] Read a global site config file that include site title, description
 - [x] Read Nunjucks files
 - [x] Read Markdown files and markup
 - [x] Compile the Nunjucks files and generate HTML pages
 - [x] Compile the Markdown files (with the Frontmatter) and insert them into the Nunjucks files
-- [ ] Read data from JSON or YAML files.
+- [x] Read data from JSON or YAML files.
 - [ ] Create a script that create JSON or YAML files with a list of posts or pages or anything I'd need to iterate over and the source of this information would come from actual files. Supports file-based data formats.
 - [ ] Clean up URLs
 
 
-## To-Do
-What is there to do?
+## To-Do: What is there to do?
 
 **Documention**
-- [ ] Write our plan for developing this static site generator: I'm regularly updating this in the log where most of my logic and pseudocode originates.
+- [x] Write my plan for developing this static site generator: I'm regularly updating this in the log where most of my logic and pseudocode originates.
 
 **Dependencies**
 Check the `package.json` file for a complete list. This is just my planning list
@@ -56,8 +55,15 @@ Check the `package.json` file for a complete list. This is just my planning list
 - [x] update .edigorconfig (tab spaces or nah)
 
 
+**Site config**
+- [ ] decide on best format: js, json, yaml  | using JSON
+
+
 **Content**
 - [ ] Create test page content with front matter
+- [ ] Create an archive page/homepage
+- [ ] Create a post/article page
+- [ ] Update all pages to include reusable code
 
 #### Directions
 

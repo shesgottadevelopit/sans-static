@@ -15,6 +15,21 @@ layout: main
 {% block content %}
 <main>
 <!-- main page content -->
+
+Site URL: {{ site.url }}
+<br>
+Site URL: {{ site.description }}
+<br>
+Site: {{ site | dump | safe }}
+<br>
+Test: {{ test }}
+Site:
+{% markdown %}
+```
+{{ site | dump }}
+```
+{% endmarkdown %}
+<br>
 <h1>THIS IS MY TEST hompage</h1>
 
 <ul>

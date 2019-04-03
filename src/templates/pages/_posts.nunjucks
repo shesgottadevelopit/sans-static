@@ -1,0 +1,14 @@
+---
+layout: post
+---
+{% extends layout +  ".nunjucks" %}  {# //this code allows this nunjucks file to inherit the structure of the layout #}
+
+
+{% block content %}
+<main>
+</main>
+
+<article class="">
+{% markdown file + ".md" %} {# //this code allows you to pull in the md file into this template #}
+</article>
+{% endblock %}

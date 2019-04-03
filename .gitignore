@@ -3,6 +3,7 @@
 # Ignore everything in the following
 .*
 ~*
+# _*
 
 # ignores these things in the src directory
 src/img/*

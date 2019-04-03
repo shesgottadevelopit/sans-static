@@ -16,6 +16,31 @@ Date: [insert dates]
 </details>
 --->
 
+### Entry No. 007
+Date: Tuesday 04/02/2019
+
+**Notes:**
+I've spent the last two day trying to figure out how to extract the data in the files that are moving through the node streams.
+
+I think I'm closer but not quite so I'm taking a step back to read up on stream. I also just need to start trying and stop reading but we'll get there.
+
+Basically, I want to be able to store some of the frontmatter into a JSON file and/or variable so that I can use it as data in nunjucks templates and later in nunjucks templates for archive pages.
+
+Some pseudocode follows:
+```js
+// page compilation | .md --> nunjucks --> html
+    // read the files in posts and generate a list with the filename that is saved to the directory as a JSON file (same as the last one but this happens before)
+        // this list should include the title of the post, date, and url
+    // create a posts object in the system
+        // for each file, store the frontmatter as an object inside the posts object
+        // save that posts object to a new variable call that can be used by the rest of the task
+    // for each post in the posts directory, gulp will render the post, inserting the filename into the {%markdown block%} and generating an html page. the file will be generated using variables pulled from greymatter . it will use the "post" template
+    // store that post in 'src/articles'
+    // write a json file that includes the list of files in that directory w/url as an archive
+```
+
+My success so far is being able to render data from a JSON file stored in my project within the nunjucks template. Now I have to figure out how to create/extract data from the markdown files frontmatter and pass that into nunjucks later to render templates. 
+
 ### Entry No. 006
 Date: Friday 03/29/2019
 

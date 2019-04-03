@@ -1,0 +1,18 @@
+{"site":
+    {
+      "title": "sans-static",
+      "description": "A plain HTML starter static site.",
+      "url": "my url",
+      "rss": "/rss.xml",
+      "favicon": "",
+      "maxItems": 6,
+      "styleSheet": "/css/styles.css",
+      "authors": {
+        "First Last": {
+          "name": "badgalriri",
+          "bio": "baddie baddie baddie"
+        }
+      },
+      "key": "value"
+    }
+}

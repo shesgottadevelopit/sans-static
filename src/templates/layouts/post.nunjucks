@@ -1,4 +1,4 @@
-{# site main.nunjucks #}
+{# site post.nunjucks #}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +26,7 @@
             <h2>Post Page Template </h2>
 
         {% block content %}
+        {% markdown file + ".md" %} {# //this code allows you to pull in the md file into this template #}
         {% endblock %}
 
             {# this adds the footer partial #}

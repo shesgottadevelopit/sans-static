@@ -1,0 +1,22 @@
+{"site":
+    {
+      "title": " (string) (required) - the title of your site",
+      "description": "(string) (required) - a description of your site.",
+      "url": "(string) (required) - the URL of your site",
+      "rss": "(string) (required) - the RSS feed XML file | /rss.xml",
+      "favicon": "",
+      "maxItems": "(number) (optional) - the number to use for pagination",
+      "styleSheet": "/css/styles.css",
+      "authors": {
+        "author1": {
+          "name": "name",
+          "bio": "bio",
+          "description": "an map of authors with metadata"
+        }
+      },
+      "stylesheet": "(string) (optional) - the name of your main CSS file created by the sass task",
+      "imageCompression": "(boolean) (optional) - a boolean value to enable/disable image compresssion on build",
+      "uncssIgnore": "(array) (optional) - a list of selectors that uncss should ignore (for example ".container" or "#my-element")",
+      "key": "value"
+    }
+}
