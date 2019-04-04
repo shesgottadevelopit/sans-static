@@ -14,6 +14,9 @@ var gulpDataMatter = require('gulp-data-matter');
 var gulpDebug = require('gulp-debug');
 var gulpData = require('gulp-data');
 var siteData = require('./src/data/site.json');
+var fs = require('fs');
+var matter = require('gray-matter');
+
 
 //var ftp = require('vinyl-ftp');
 //var nunjucks = require('nunjucks');
@@ -107,20 +110,22 @@ gulp.task('posts', function() {
 // pages | nunjucks compilation to html
 gulp.task('nunjucks', function() {
 
+    var myList = [];
+    var newObj = {};
+
+    const str = fs.readFileSync('src/templates/pages/index.nunjucks', 'utf8');
+    console.log(matter(str));
 
     // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
     .pipe(gulpDebug({title: 'unicorn:'}))
+
     //extract frontmatter
     .pipe(gulpGrayMatter({
         //remove: false
     }))
-    .pipe(gulpDebug({title: 'unicorn:'}))
-    .on('end', function(){
-        // log(gulpGrayMatter({}));
-        // log(file.data)
-    })
-    // use my sites data stored in a json file
+
+    // use my site's data stored in a json file
     .pipe(gulpData(function() {
         return siteData; // or use return require('./src/data/site.json')
     }))
@@ -138,10 +143,38 @@ gulp.task('nunjucks', function() {
             'src/templates/partials', // partials
             'src/templates/pages'], // pages that will be based on the main template & partials
     }))
-    .pipe(gulpDebug({title: 'unicorn:'}))
     .on('error', gutil.log) // checks and logs errors
     //outputs the files into the src home folder
     .pipe(gulp.dest('src'))
+    .pipe(gulpData(function(file) {
+            var content = matter(file.contents);
+            //console.log(file)
+            // console.log(file.data);
+            console.log(file.path);
+            console.log(Object.getOwnPropertyNames(file));
+            console.log(file.base)
+            //console.log(file.contents)
+            //console.log(content)
+            var singleFile = {
+                title: file.data.title,
+                description: file.data.description
+                // "content": content.content
+            }
+            // var singleFile = file.data;
+
+            myList.push(singleFile);
+
+        }))
+    .pipe(gulpDebug({title: 'unicorn:', minimal: false}))
+    .on('end', function(){
+        // log(gulpGrayMatter({}));
+        // log(file)
+        console.log(myList)
+        let myListObj = Object.assign(newObj, myList);
+        let myListJson = JSON.stringify(myListObj, null, 4)
+        // let myListJson = JSON.stringify(myList, null, 4)
+        fs.writeFileSync('src/data/page-archive.json', myListJson)
+    })
     .pipe(browserSync.reload({stream: true}));
 });
 

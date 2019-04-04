@@ -16,6 +16,49 @@ Date: [insert dates]
 </details>
 --->
 
+### Entry No. 008
+Date: Wednesday 04/03/2019
+
+**Next Steps:**
+- For posts consider this: http://assemble.io/docs/YAML-front-matter.html
+
+
+**Notes:**
+So far, I'm using `gulp-data` to access the frontmatter and I'm extracting it into an object and pushing that object to an array. This is the code:
+```js
+
+var myList = [];
+
+// .... other plugins
+
+.pipe(gulpData(function(file) {
+        var content = matter(file.contents);
+        //console.log(file)
+        console.log(file.path);
+        console.log(Object.getOwnPropertyNames(file));
+        //console.log(file.contents)
+        //console.log(content)
+        var singleFile = {
+            "title": file.data.title,
+            "description": file.data.description,
+            "content": content.content
+        }
+        // var singleFile = file.data;
+
+        myList.push(singleFile);
+
+    }))
+.on('end', function(){
+    console.log(myList)
+})
+
+```
+I need to figure out how to push to an object, convert that object to JSON format and save as a JSON file in my `src/data` setup. One thing to note is right now I'm testing this with pages and not posts since I haven't figure out my post rendering situation. **Success!**
+
+I figured out how to do it using `fs.writeFileSync`. There is a gulp plugin that offers the same functionality and I'll look into that at some point. It is called `jsonfile` and is on [npm](https://www.npmjs.com/package/jsonfile).
+
+Thinking ahead, I could separate this part of the compilation task and make a dedicated data task.
+
 ### Entry No. 007
 Date: Tuesday 04/02/2019
 
@@ -39,7 +82,17 @@ Some pseudocode follows:
     // write a json file that includes the list of files in that directory w/url as an archive
 ```
 
-My success so far is being able to render data from a JSON file stored in my project within the nunjucks template. Now I have to figure out how to create/extract data from the markdown files frontmatter and pass that into nunjucks later to render templates. 
+My success so far is being able to render data from a JSON file stored in my project within the nunjucks template. Now I have to figure out how to create/extract data from the markdown files frontmatter and pass that into nunjucks later to render templates.
+
+**Update:** I figured out how to access the `file.data` object/property for each file in the stream using this code after the gulpGrayMatter task
+
+```js
+.pipe(gulpData(function(file) {
+        console.log(file.data);
+    }))
+```
+
+What I need to do next is figure out how to save that data and also prevent that "Buffer 05 03 38" thing from happening. I got the hint from this [stackoverflow post](https://stackoverflow.com/questions/36560482/where-is-gulp-front-matter-putting-my-front-matter) which explains that plugin creators assume the user will use `gulp-data` to manipulate the data, although it seems clear to me that the data is accessible even without using `gulp-data`.
 
 ### Entry No. 006
 Date: Friday 03/29/2019
