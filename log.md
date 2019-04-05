@@ -16,6 +16,29 @@ Date: [insert dates]
 </details>
 --->
 
+### Entry No. 010
+Date: Friday 04/05/2019
+
+**Notes:**
+New developments: while trying to go to sleep I decided to google and figure out if there is a way to add content to a file. I'm thinking this way I could insert `{% extends template.nunjucks %}` into my Markdown files for posts without having that in the actual document. And I'll do this after the frontmatter has already be extracted and saved to a JSON file, ideally.
+
+Thanks again to stackoverflow, there are a few options for type of solution:
+- `gulp-header`
+- `gulp-replace`
+- `map-stream` which I'd like to explore later
+
+For this project I'm going to go for what seems like the simple solution which is `gulp-header`.
+
+I'm also going to create a new branch on git to test this out to avoid the issue I had yesterday with code changes I couldn't track :-).
+
+Git branching refresher for me:
+```bash
+git checkout -b <branch name> # creates and switches you to this new branch
+
+git checkout master # switches back to master 
+
+```
+
 ### Entry No. 009
 Date: Thursday 04/04/2019
 
