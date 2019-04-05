@@ -61,6 +61,7 @@ Check the `package.json` file for a complete list. This is just my planning list
 **Site config**
 - [x] decide on best format: js, json, yaml  | using JSON
 - [ ] create a master site config file
+    - url paths should be root relative
 
 
 #### How to use

@@ -28,7 +28,9 @@ Stackoverflow fix: https://stackoverflow.com/questions/40414310/gulp-control-out
 
 Now I need to figure out how to get my updated code into this and hope this one actually starts working again.
 
-**Update:** It is fixed, I copied my old code into my new code. After looking over each line and trying to fix it without copying, I wasn't able to find my mistake, so copying will do. Going to push these changes and call it a night before I break something else. Going to do a git branch refresher so I'm not making this mistake again.  
+**Update:** It is fixed, I copied my old code into my new code. After looking over each line and trying to fix it without copying, I wasn't able to find my mistake, so copying will do. Going to push these changes and call it a night before I break something else. Going to do a git branch refresher so I'm not making this mistake again.
+
+Also made my css directory path root relative since the template hierachy makes it challenge to get the right path for pages in `articles` versus the site root. Thanks to stackoverflow again for this [tip](https://github.com/mozilla/nunjucks/issues/1056#issuecomment-360531108).
 
 ### Entry No. 008
 Date: Wednesday 04/03/2019
