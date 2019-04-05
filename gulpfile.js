@@ -1,5 +1,6 @@
 // variable setup
 
+var fs = require('fs');
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var nunjucksRender = require('gulp-nunjucks-render');
@@ -10,11 +11,9 @@ var cleanbuild = require('del');
 var markdown = require('nunjucks-markdown');
 var markdownIt = require('markdown-it');
 var gulpGrayMatter = require('gulp-gray-matter');
-var gulpDataMatter = require('gulp-data-matter');
 var gulpDebug = require('gulp-debug');
 var gulpData = require('gulp-data');
 var siteData = require('./src/data/site.json');
-var fs = require('fs');
 var matter = require('gray-matter');
 
 
@@ -56,56 +55,67 @@ gulp.task('browser-sync', function() {
 
 // register markdown parser via plugin
 var nunjucksMarkdownRender = function (env) {
-    var md = new markdownIt({html: true, linkify: true,
+    var mdRender = new markdownIt({html: true, linkify: true,
       typographer: true})
-    var renderer = md.render.bind(md);
+    var renderer = mdRender.render.bind(mdRender);
     markdown.register(env,renderer);
 }
 
+// page compilation | .md --> nunjucks --> html
 gulp.task('posts', function() {
 
-    // page compilation | .md --> nunjucks --> html
-        // read the files in posts and generate a list with the filename that is saved to the directory as a JSON file (same as the last one but this happens before)
-            // this list should include the title of the post, date, and url
-        // create a posts object in the system
-            // for each file, store the frontmatter as an object inside the posts object
-            // save that posts object to a new variable call that can be used by the rest of the task
-        // for each post in the posts directory, gulp will render the post, inserting the filename into the {%markdown block%} and generating an html page. the file will be generated using variables pulled from greymatter . it will use the "post" template
-        // store that post in 'src/articles'
-        // write a json file that includes the list of files in that directory w/url as an archive
-
+        var myPosts = [];
 
     // gets .md files, excludes files that start with an underscore ... globbing
-    return gulp.src('src/templates/posts/[^_]*.+(md)')
-    .pipe(gulpDebug({title: 'unicorn:'}))
+    return gulp.src('src/templates/posts/[^_]*.+(md|nunjucks)')
+
     //extract frontmatter
-    .pipe(gulpGrayMatter({
-        //remove: false
-    }))
-    // .pipe(gulpDataMatter(log(data)))
+    .pipe(gulpData(function(file) {
+            // var content = matter(file.contents);
+            var mdFile = matter(file);
+            console.log(mdFile.data)
+            // console.log(mdFile.path)
+            // console.log(mdFile.content)
+            // console.log(Object.getOwnPropertyNames(file));
+
+            var singlePost = {
+                title: mdFile.data.title,
+                description: mdFile.data.tags,
+                keywords: mdFile.data.albums
+                // "content": content.content
+            }
+            // var singleFile = file.data;
+
+            myPosts.push(singlePost);
+
+        }))
+
     //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
-    // .on('end', function(){
-    //     log(data)
-    // })
     .pipe(nunjucksRender({
-        // data: {
-        //     site: 'path-to-site-config' // and inside of the template use {{ site.author }}
-        // },
         manageEnv: nunjucksMarkdownRender,
         envOptions: {
-            autoescape: false
+            autoescape: false,
+            noCache: true
         },
         path: [
             'src/templates/layouts', // the main template
             'src/templates/partials', // partials
-            'src/templates/pages'], // pages that will be based on the main template & partials
+            'src/template/posts'] // posts
     }))
     .on('error', gutil.log) // checks and logs errors
     //outputs the files into the src home folder
     .pipe(gulp.dest('src/articles'))
+    .on('end', function(){
+        // log(file)
+        console.log(myPosts)
+        let postObj = Object.assign({}, myPosts);
+        let postJson = JSON.stringify(postObj, null, 4)
+        // let myListJson = JSON.stringify(myList, null, 4)
+        fs.writeFileSync('src/data/post-archive.json', postJson)
+    })
     .pipe(browserSync.reload({stream: true}));
 
-})
+});
 
 // pages | nunjucks compilation to html
 gulp.task('nunjucks', function() {
@@ -157,7 +167,8 @@ gulp.task('nunjucks', function() {
             //console.log(content)
             var singleFile = {
                 title: file.data.title,
-                description: file.data.description
+                description: file.data.description,
+                keywords: file.data.keywords
                 // "content": content.content
             }
             // var singleFile = file.data;
@@ -202,7 +213,6 @@ gulp.task('test', function() {
 });
 
 
-
 // css task; sass is autocompiled thanks to atom.io package
 gulp.task('css', function(){
     return gulp.src('src/css/**/*.css')
@@ -219,13 +229,14 @@ gulp.task('js', function(){
 gulp.task('watch', function(){
 
     gulp.watch('src/templates/**/*.nunjucks', ['nunjucks']);
+    gulp.watch('src/templates/**/*.md', ['posts']);
     gulp.watch('src/css/**/*.css', ['css']);
     gulp.watch('src/js/**/*.js', ['js']);
 
 });
 
 // default
-gulp.task('default', ['nunjucks','css','js','watch','browser-sync']);
+gulp.task('default', ['nunjucks','posts','css','js','watch','browser-sync']);
 
 
 /*** deployment tasks

@@ -3,6 +3,7 @@
 title: "Rihanna is the fav"
 date: "1-29-2019"
 url: "/articles/rihanna.html"
+article: beyonce.md
 author: badgirlriri
 description:
 template:
@@ -30,6 +31,7 @@ makeup:
     mac: ririwoo
     fenty: stunna
 ---
+{% extends layout +  ".nunjucks" %}
 
 ## Sex with Me Lyrics
 

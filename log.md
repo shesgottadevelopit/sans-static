@@ -16,12 +16,36 @@ Date: [insert dates]
 </details>
 --->
 
+### Entry No. 009
+Date: Thursday 04/04/2019
+
+**Notes:**
+Soooo I started to figure out my posts rendering script and then noticed that my regular nunjucks script stopped working. I'm not sure how to fix that. I decided to open another project created in nunjucks to see if it was working and yes all of the files are compiling. It is just this project I've been working on for the last few days that is no longer compiling after I found success yesterday URGHHH!
+
+I ended up cloning my github repo (thank goodness!) to a new directory, since that code wasn't broken. I found out the issue was that `gulp-gray-matter` wasn't extracting frontmatter from my Markdown files, only Nunjucks. I wasn't sure how to extract frontmatter using only the `gray-matter` package but thanks to Stackoverflow I was able to find a "recipe" to model mine after. Not exactly the same but I figured out how to make it work.
+
+Stackoverflow fix: https://stackoverflow.com/questions/40414310/gulp-control-output-based-on-data-from-an-earlier-pipe
+
+Now I need to figure out how to get my updated code into this and hope this one actually starts working again.
+
+**Update:** It is fixed, I copied my old code into my new code. After looking over each line and trying to fix it without copying, I wasn't able to find my mistake, so copying will do. Going to push these changes and call it a night before I break something else. Going to do a git branch refresher so I'm not making this mistake again.  
+
 ### Entry No. 008
 Date: Wednesday 04/03/2019
 
 **Next Steps:**
 - For posts consider this: http://assemble.io/docs/YAML-front-matter.html
 
+Update pseudocode:
+```js
+// page compilation | .md --> nunjucks --> html
+    // starting with the posts.nunjucks template
+    // grab each markdown file from the posts directory, each file in the stream will be labeled "file"
+    // pipe each markdown file into the posts.njk template through the {%markdown filename.md %} block
+    // render html file
+    // generate a list of the articles and there pertinent front matter into a JSON file: title of the post, date, and url
+    // use the json to create an archive sorted
+```
 
 **Notes:**
 So far, I'm using `gulp-data` to access the frontmatter and I'm extracting it into an object and pushing that object to an array. This is the code:

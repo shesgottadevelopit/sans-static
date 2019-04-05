@@ -1,22 +1,52 @@
 {
     "0": {
         "title": "What's the 404?",
-        "description": "description"
+        "description": "description",
+        "keywords": [
+            "keyword",
+            "keyword"
+        ]
     },
     "1": {
-        "title": "My Homepage",
-        "description": "This is my homepage"
+        "title": "HTML5 Test page",
+        "description": "An HTML5 test page",
+        "keywords": [
+            "html5",
+            "css",
+            "semantic"
+        ]
     },
     "2": {
-        "title": "Markdown Test Page",
-        "description": "description"
+        "title": "My Homepage",
+        "description": "This is my homepage",
+        "keywords": [
+            "homepage",
+            "basic shit",
+            "super basic shit"
+        ]
     },
     "3": {
-        "title": "HTML Markup Page",
-        "description": "description"
+        "title": "Markdown Test Page",
+        "description": "description",
+        "keywords": [
+            "keyword",
+            "keyword"
+        ]
     },
     "4": {
+        "title": "HTML Markup Page",
+        "description": "description",
+        "keywords": [
+            "keyword",
+            "keyword"
+        ]
+    },
+    "5": {
         "title": "Page with Markdown Partial",
-        "description": "description"
+        "description": "description",
+        "keywords": [
+            "keyword",
+            "keyword"
+        ]
     }
 }

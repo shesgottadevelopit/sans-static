@@ -1,8 +1,8 @@
 ---
-# This is a full line comment
-title: "Rihanna is the fav"
-date: "1-29-2019"
-url: "/articles/riri-sample"
+title: Rihanna is the fav
+date: 1-29-2019
+url: rihanna
+article: rihanna
 author: badgirlriri
 description:
 template:
@@ -27,14 +27,17 @@ collection:
       color: yes yes
 makeup:
     mac: ririheaux
-    mac: ririwoo
+    mac2: ririwoo
     fenty: stunna
 ---
+{% extends "post.nunjucks" %}
+
+{% block content %}
 
 ## Sex with Me Lyrics
 
 ## YAML
-This page returns this data from the frontmatter:
+This page returns this data from the frontmatter: i love you
 
 ```yaml
 ---
@@ -65,7 +68,7 @@ collection:
       color: yes yes
 makeup:
     mac: ririheaux
-    mac: ririwoo
+    mac2: ririwoo
     fenty: stunna
 ---
 ```
@@ -92,8 +95,8 @@ makeup:
 
 ### Albums
 **The represents an array**
-{% for album in page.albums %}
-- {{ item }}
+{% for album in file.data.albums %}
+- {{ album }}
 {% endfor %}
 
 ### Albums & Years
@@ -159,3 +162,5 @@ Sex with me so amazing
 (This is the best there is)
 
 [Source](https://genius.com/Rihanna-sex-with-me-lyrics)
+
+{% endblock %}

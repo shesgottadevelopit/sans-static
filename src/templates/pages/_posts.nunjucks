@@ -1,5 +1,16 @@
 ---
 layout: post
+title: Rihanna is the fav
+date: 1-29-2019
+url: "/articles/riri-sample"
+article: rihanna
+author: badgirlriri
+description:
+template:
+tags:
+- fentyxsavage
+- Legends
+- Trailblazer
 ---
 {% extends layout +  ".nunjucks" %}  {# //this code allows this nunjucks file to inherit the structure of the layout #}
 
@@ -9,6 +20,16 @@ layout: post
 </main>
 
 <article class="">
-{% markdown file + ".md" %} {# //this code allows you to pull in the md file into this template #}
+
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in tellus vel magna condimentum mattis a ac nisi. Nunc id ligula eros. Vivamus luctus a orci dictum cursus. Nullam vestibulum metus vel tellus porta, eget aliquet est interdum. Fusce venenatis justo non mollis rhoncus. Integer molestie, lorem interdum rutrum venenatis, quam enim varius enim, ut ullamcorper massa nunc ut enim. Proin placerat diam vitae odio gravida lacinia. Mauris metus arcu, fringilla at placerat et, cursus quis metus. Donec volutpat varius consectetur. Suspendisse aliquet libero nec facilisis tempor.
+
+    Suspendisse dictum ipsum id mattis posuere. Ut ut faucibus lectus. Ut sodales dictum odio, at malesuada velit tempor eget. Donec ullamcorper urna enim, volutpat ultrices tortor pellentesque non. Phasellus venenatis eros orci, sed lobortis dolor lobortis ut. Morbi vestibulum tortor a dui maximus, ac pulvinar orci venenatis. Mauris vel metus commodo, luctus ex vitae, commodo massa. Vivamus venenatis elit quis felis consectetur, a feugiat augue dictum. Nunc dignissim enim pellentesque, luctus velit dictum, sagittis dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ipsum eros, malesuada eu ante non, ultricies pretium mi. Cras ornare a tortor quis cursus. Suspendisse a ex mi. Morbi a nunc eu arcu euismod scelerisque. Sed ut lorem eu erat semper commodo.
+
+    Suspendisse potenti. Nunc bibendum arcu non elit consectetur, id malesuada dui rutrum. Aenean nibh ante, eleifend at urna ut, tristique consequat lectus. In id neque id dolor maximus laoreet ac quis nulla. Suspendisse potenti. Pellentesque blandit at risus at lobortis. Nunc tincidunt turpis eget arcu mollis porttitor. Maecenas at ex eu est convallis rutrum in vitae lectus. Sed lorem mauris, elementum in consectetur sit amet, lobortis vitae ex. Vestibulum nec sagittis neque. Pellentesque malesuada, nisi in porta vestibulum, urna odio rhoncus augue, in commodo odio nisi iaculis arcu.
+
+    Maecenas malesuada purus vel egestas hendrerit. Donec turpis nulla, aliquam ut risus dapibus, sodales semper arcu. Nullam nec eros at sapien dignissim rhoncus eu a sapien. Duis nec mattis est. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam venenatis viverra diam sed feugiat. Cras vel lacus in nunc elementum dapibus sed sit amet felis.
+
+    Vestibulum mattis sapien eu leo tincidunt pretium. Donec egestas leo quis interdum tincidunt. Ut elementum quis dui quis vestibulum. Cras vitae placerat justo, eget tristique ipsum. Suspendisse vitae lorem tincidunt, aliquet purus ut, suscipit eros. Quisque finibus tempor tellus quis cursus. Mauris id efficitur magna, quis lacinia dolor.
 </article>
 {% endblock %}

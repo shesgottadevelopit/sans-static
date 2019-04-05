@@ -11,9 +11,11 @@ layout: main
 {% extends layout +  ".nunjucks" %}  {# //this code allows this file to inherit it's structure #}
 
 
+
 {% block content %}
 <!-- main page content -->
 <main>
+hello world this is a test. lets try again
 
     <div>
         <section>

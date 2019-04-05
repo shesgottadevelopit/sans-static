@@ -24,10 +24,16 @@
             {% endblock %}
 
             <h2>Post Page Template </h2>
+            <h3>{{ article }}</h3>
 
-        {% block content %}
-        {% markdown file + ".md" %} {# //this code allows you to pull in the md file into this template #}
-        {% endblock %}
+            {# {% markdown "rihanna.md" %} #}
+
+            {% markdown %}
+
+            {% block content %}
+            {% endblock %}
+
+            {% endmarkdown %}
 
             {# this adds the footer partial #}
             {% block footer %}
