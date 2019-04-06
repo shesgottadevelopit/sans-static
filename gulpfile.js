@@ -10,19 +10,20 @@ var gutil = require('gulp-util');
 var cleanbuild = require('del');
 var markdown = require('nunjucks-markdown');
 var markdownIt = require('markdown-it');
+var matter = require('gray-matter');
 var gulpGrayMatter = require('gulp-gray-matter');
+var gulpFm = require('gulp-front-matter');
 var gulpDebug = require('gulp-debug');
 var gulpData = require('gulp-data');
-var siteData = require('./src/data/site.json');
-var matter = require('gray-matter');
+var gulpInject = require('gulp-inject-string');
+var gulpFm = require('gulp-front-matter');
 
 
 //var ftp = require('vinyl-ftp');
-//var nunjucks = require('nunjucks');
-//var gulpnunjucks = require('gulp-nunjucks')
-// var gulpMarkdownIt = require('gulp-markdownit');
-// var gulpMdIt = require('gulp-markdown-it');
 
+
+//register global site data
+var siteData = require('./src/data/site.json');
 
 
 /*** local development tasks
@@ -49,9 +50,6 @@ gulp.task('browser-sync', function() {
 
 });
 
-//register global site data
-// maybe not?
-
 
 // register markdown parser via plugin
 var nunjucksMarkdownRender = function (env) {
@@ -61,36 +59,46 @@ var nunjucksMarkdownRender = function (env) {
     markdown.register(env,renderer);
 }
 
+// helpful function to log data (debugging)
+function logData(file) {
+    var contents = matter(file.contents)
+    // console.log(file);
+    console.log(file.data);
+    console.log(contents);
+    console.log(Object.getOwnPropertyNames(file));
+    // console.log(file.orig)
+}
+
+
 // page compilation | .md --> nunjucks --> html
 gulp.task('posts', function() {
 
         var myPosts = [];
 
     // gets .md files, excludes files that start with an underscore ... globbing
-    return gulp.src('src/templates/posts/[^_]*.+(md|nunjucks)')
+    return gulp.src('src/templates/posts/[^_]*.+(md)')
 
-    //extract frontmatter
+    //extract frontmatter and save to array
     .pipe(gulpData(function(file) {
-            // var content = matter(file.contents);
-            var mdFile = matter(file);
-            console.log(mdFile.data)
-            // console.log(mdFile.path)
-            // console.log(mdFile.content)
-            // console.log(Object.getOwnPropertyNames(file));
 
-            var singlePost = {
-                title: mdFile.data.title,
-                description: mdFile.data.tags,
-                keywords: mdFile.data.albums
-                // "content": content.content
-            }
-            // var singleFile = file.data;
+        var mdFile = matter(file);
+        var singlePost = {
+            title: mdFile.data.title,
+            description: mdFile.data.tags,
+            keywords: mdFile.data.albums
+            // "content": content.content
+        }
 
-            myPosts.push(singlePost);
+        myPosts.push(singlePost); // var singleFile = file.data;
 
         }))
+        .pipe(gulpFm({remove: true}))
 
-    //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
+    // add extends for templating: {% extends "post.nunjucks" %}
+    .pipe(gulpInject.wrap('{% extends "post.nunjucks" %}{% block content %}', '{% endblock %}'))
+    .pipe(gulpData(logData))
+
+    //renders files using the templates located in this directory.
     .pipe(nunjucksRender({
         manageEnv: nunjucksMarkdownRender,
         envOptions: {
@@ -103,11 +111,14 @@ gulp.task('posts', function() {
             'src/template/posts'] // posts
     }))
     .on('error', gutil.log) // checks and logs errors
+
     //outputs the files into the src home folder
     .pipe(gulp.dest('src/articles'))
+
+    //creates the json data file
     .on('end', function(){
         // log(file)
-        console.log(myPosts)
+        // console.log(myPosts)
         let postObj = Object.assign({}, myPosts);
         let postJson = JSON.stringify(postObj, null, 4)
         // let myListJson = JSON.stringify(myList, null, 4)

@@ -19,6 +19,31 @@ Date: [insert dates]
 ### Entry No. 010
 Date: Friday 04/05/2019
 
+**Helper function:** I created this helper function so that I won't have to constantly type it out whenever I'm trying to log data to the console for debugging
+
+```js
+//Before
+.pipe(gulpData(function(file) {
+    var content = matter(file.contents);
+    console.log(content)
+    console.log(file.data)
+    // console.log(fm)
+    // console.log(file.extract)
+}))
+
+//After
+function logData(file) {
+    var contents = matter(file.contents)
+    console.log(file);
+    console.log(file.data);
+    console.log(contents)
+}
+
+// Call in in the gulp task like this:
+.pipe(gulpData(logData))
+
+```
+
 **Notes:**
 New developments: while trying to go to sleep I decided to google and figure out if there is a way to add content to a file. I'm thinking this way I could insert `{% extends template.nunjucks %}` into my Markdown files for posts without having that in the actual document. And I'll do this after the frontmatter has already be extracted and saved to a JSON file, ideally.
 
@@ -35,8 +60,52 @@ Git branching refresher for me:
 ```bash
 git checkout -b <branch name> # creates and switches you to this new branch
 
-git checkout master # switches back to master 
+git checkout master # switches back to master
+```
+The thing I thought would happen w/using `gulp-header` is happening. It is wrapping the whole document, including frontmatter with the tags, which means the frontmatter now gets rendered to the page as HTML.
 
+Options include:
+- figuring out how to extract frontmatter from the top while it is going through the stream
+- use another plugin. Found `gulp-inject-string` but that would require me to add markup to the page as a separator or use the existing markup and hope nothing in the middle conflicts in the future
+- See about `gulp-replace`
+
+**Update:** turns out there is a gulp plugin that does option no.1 and I completely overlooked it thinking it functioned just like gray-matter and why would I need two of those. I spent alot of time today trying Regex my way out of this situation and someone else had already done the heavy lifting _sighs_. That plugin is called `gulp-front-matter`.
+
+Some of the things I explored are below:
+
+- tinkered with updating the `gulp-extract-text` plugin. It extracted the text but I still couldn't figure out how to take the text out of the document while in the file stream.
+- `gulp-replace` was not working
+- `gulp-inject-string`'s wrap functionality would be great but I couldn't figure out how to isolate just the body text without including the frontmatter. I may be able to use that now that `gulp-front-matter` is doing the isolating.
+
+Code dump:
+```js
+
+const extract = require('../gulp-extract-text/app/index');
+
+// .pipe(extract(extract_params))
+.pipe(gulpData(function(file) {
+    var content = matter(file.contents);
+    //console.log(content)
+    //console.log(file.extract)
+    // fm = matter(file.extract)
+    // console.log(fm)
+    // fm = '---'+file.extract+'---'
+    fm = file.extract
+    console.log(fm)
+    console.log(typeof fm)
+    console.log(content)
+}))
+
+// add extends for templating: {% extends "post.nunjucks" %}
+// .pipe(gulpReplace(fm, 'nothing'))
+// .pipe(gulpInject.before(fm, ''))
+// .pipe(gulpInject.after(fm,'this thing'))
+.pipe(gulpHeader('{% extends "post.nunjucks" %} \n {% block content %}'))
+.pipe(gulpFooter('{% endblock %}'))
+// .pipe(gulpInject.wrap('{% extends "post.nunjucks" %} \n {% block content %}', '{% endblock %}'))
+// .pipe(gulpInject.after(fm+'---', '{% extends "post.nunjucks" %} \n {% block content %}'))
+// .pipe(gulpInject.after('---\n', `INJECTED TEXT`))
+// .pipe(gulpFooter('{% endblock %}'))
 ```
 
 ### Entry No. 009

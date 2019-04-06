@@ -30,7 +30,7 @@ makeup:
     mac2: ririwoo
     fenty: stunna
 ---
-# Heading 1 | page should start here
+# Heading 1 | page should start here 
 ## Sex with Me Lyrics
 
 ## YAML
@@ -49,6 +49,24 @@ tags:
 - fentyxsavage
 - Legends
 - Trailblazer
+albums:
+    - Loud
+    - ANTI
+    - Talk that Talk
+collection:
+    - album: Loud
+      year: 2014
+      certified: yes
+    - name: ANTI
+      cost: 2016
+      color: hell yess
+    - name: Talk that Talk
+      cost: 2015
+      color: yes yes
+makeup:
+    mac: ririheaux
+    mac2: ririwoo
+    fenty: stunna
 ---
 ```
 

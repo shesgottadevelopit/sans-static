@@ -28,10 +28,9 @@ collection:
       color: yes yes
 makeup:
     mac: ririheaux
-    mac: ririwoo
+    mac3: ririwoo
     fenty: stunna
 ---
-{% extends layout +  ".nunjucks" %}
 
 ## Sex with Me Lyrics
 
