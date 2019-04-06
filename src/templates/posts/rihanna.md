@@ -30,10 +30,7 @@ makeup:
     mac2: ririwoo
     fenty: stunna
 ---
-{% extends "post.nunjucks" %}
-
-{% block content %}
-
+# Heading 1 | page should start here
 ## Sex with Me Lyrics
 
 ## YAML
@@ -52,24 +49,6 @@ tags:
 - fentyxsavage
 - Legends
 - Trailblazer
-albums:
-    - Loud
-    - ANTI
-    - Talk that Talk
-collection:
-    - album: Loud
-      year: 2014
-      certified: yes
-    - name: ANTI
-      cost: 2016
-      color: hell yess
-    - name: Talk that Talk
-      cost: 2015
-      color: yes yes
-makeup:
-    mac: ririheaux
-    mac2: ririwoo
-    fenty: stunna
 ---
 ```
 
@@ -162,5 +141,3 @@ Sex with me so amazing
 (This is the best there is)
 
 [Source](https://genius.com/Rihanna-sex-with-me-lyrics)
-
-{% endblock %}
