@@ -16,11 +16,30 @@ Date: [insert dates]
 </details>
 --->
 
+## To-do list
+- [ ] test out `gulp-markdown-to-json` plugin
+- [ ]
+
+### Entry No. 011
+Date: Saturday 04/06/2019
+
+**Notes:**
+I updated the output directory for `.pipe(gulp.dest(''))` so that it would be `build` instead of `src`. That way I can really keep source and final materials separate. I have another directory call `dist` which will likely be more production-ready focused and included minified, prettified stuff, but that is a task for later.
+
+I also added this line of code so create a `build/data` directory for my json files. I likely won't need it if I create a task for moving any json file in `src` to `build` but I'm glad google gave me that solution really quickly. Unlike gulp, the `fs` module doesn't automatically create a directory if it doesn't exist.
+
+```js
+if (!fs.existsSync('build/data')){
+    fs.mkdirSync('build/data')
+}
+```
+Other than that, I think I'm getting closer to a ready to work with workflow soon. Going to start cleaning up my readme and also pull in my todo's to this document since it is probably easier to track.
+
 ### Entry No. 010
 Date: Friday 04/05/2019
 
 **Up Next:**
-Might try this `gulp-markdown-to-json` plugin which I think probably would've solved the problem I spent all day fixing. https://github.com/sparkartgroup/gulp-markdown-to-json#readme 
+Might try this `gulp-markdown-to-json` plugin which I think probably would've solved the problem I spent all day fixing. https://github.com/sparkartgroup/gulp-markdown-to-json#readme
 
 **Helper function:** I created this helper function so that I won't have to constantly type it out whenever I'm trying to log data to the console for debugging
 
@@ -553,4 +572,3 @@ What I need this static site generator to do is (this pseudo code is inspired by
 
 Packages to explore
 - [gulp-nunjucks-md](https://www.npmjs.com/package/gulp-nunjucks-md)
--
