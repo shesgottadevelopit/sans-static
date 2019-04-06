@@ -12,6 +12,8 @@ robots.txt
 .editorconfig
 css/styles.css.map
 
+# ignores the build config folder
+build/**
 
 # ignores Netbeans config folder
 nbproject/**

@@ -19,6 +19,9 @@ Date: [insert dates]
 ### Entry No. 010
 Date: Friday 04/05/2019
 
+**Up Next:**
+Might try this `gulp-markdown-to-json` plugin which I think probably would've solved the problem I spent all day fixing. https://github.com/sparkartgroup/gulp-markdown-to-json#readme 
+
 **Helper function:** I created this helper function so that I won't have to constantly type it out whenever I'm trying to log data to the console for debugging
 
 ```js

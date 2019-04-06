@@ -1,5 +1,4 @@
-// variable setup
-
+// load modules
 var fs = require('fs');
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
@@ -18,12 +17,17 @@ var gulpData = require('gulp-data');
 var gulpInject = require('gulp-inject-string');
 var gulpFm = require('gulp-front-matter');
 
-
 //var ftp = require('vinyl-ftp');
 
 
 //register global site data
 var siteData = require('./src/data/site.json');
+
+/* directories
+ */
+var src = "src/";
+var build = 'build/';
+var dist = 'dist/';
 
 
 /*** local development tasks
@@ -113,16 +117,19 @@ gulp.task('posts', function() {
     .on('error', gutil.log) // checks and logs errors
 
     //outputs the files into the src home folder
-    .pipe(gulp.dest('src/articles'))
+    .pipe(gulp.dest('build/articles'))
 
     //creates the json data file
     .on('end', function(){
+        if (!fs.existsSync('build/data')){
+            fs.mkdirSync('build/data')
+        }
         // log(file)
         // console.log(myPosts)
         let postObj = Object.assign({}, myPosts);
         let postJson = JSON.stringify(postObj, null, 4)
         // let myListJson = JSON.stringify(myList, null, 4)
-        fs.writeFileSync('src/data/post-archive.json', postJson)
+        fs.writeFileSync('build/data/post-archive.json', postJson)
     })
     .pipe(browserSync.reload({stream: true}));
 
@@ -166,7 +173,7 @@ gulp.task('nunjucks', function() {
     }))
     .on('error', gutil.log) // checks and logs errors
     //outputs the files into the src home folder
-    .pipe(gulp.dest('src'))
+    .pipe(gulp.dest('build'))
     .pipe(gulpData(function(file) {
             var content = matter(file.contents);
             //console.log(file)
@@ -191,11 +198,16 @@ gulp.task('nunjucks', function() {
     .on('end', function(){
         // log(gulpGrayMatter({}));
         // log(file)
+
+        if (!fs.existsSync('build/data')){
+            fs.mkdirSync('build/data')
+        }
+
         console.log(myList)
         let myListObj = Object.assign(newObj, myList);
         let myListJson = JSON.stringify(myListObj, null, 4)
         // let myListJson = JSON.stringify(myList, null, 4)
-        fs.writeFileSync('src/data/page-archive.json', myListJson)
+        fs.writeFileSync('build/data/page-archive.json', myListJson)
     })
     .pipe(browserSync.reload({stream: true}));
 });
@@ -226,13 +238,15 @@ gulp.task('test', function() {
 
 // css task; sass is autocompiled thanks to atom.io package
 gulp.task('css', function(){
-    return gulp.src('src/css/**/*.css')
+    return gulp.src('src/css/**/*')
+    .pipe(gulp.dest('build/css'))
     .pipe(browserSync.stream());
 });
 
 // javascript task
 gulp.task('js', function(){
     return gulp.src('src/js/**/*.js')
+    .pipe(gulp.dest('build/js'))
     .pipe(browserSync.reload({stream: true}));
 });
 

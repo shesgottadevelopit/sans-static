@@ -28,8 +28,8 @@ Frontmatter is the data at the front/top of your document. It is typically enclo
 
 **Dependencies**
 Check the `package.json` file for a complete list. This is just my planning list
-- fs | using this to write files to the system
-- fs-extra | don't think I'll use this but considered it. It adds new functions to Node’s native file-system module (fs) and add promise support for the existing ones.
+- `fs` | using this to write files to the system
+- `fs-extra` | don't think I'll use this but considered it. It adds new functions to Node’s native file-system module (fs) and add promise support for the existing ones.
 
 
 **Tooling**
@@ -38,13 +38,13 @@ Check the `package.json` file for a complete list. This is just my planning list
 - [x] Decide on tooling for frontmatter data: using `gulp-gray-matter`
 
 **Template Rendering**
-- [x] Learn about front matter and how/why to incorporate it
+- [x] Learn about frontmatter and how/why to incorporate it
 - [x] Write pseudocode for rendering Markdown to HTML
 - [x] Write pseudocode for rendering Nunjucks to HTML
 - [x] Update existing code for rendering Nunjucks to HTML
 - [x] Write script for markdown compile task
 - [x] Rewrite script for nunjucks compile task
-- [ ] Update deploy/script so that browserSync opens up from dist for final testing
+- [ ] Update deploy/script so that browserSync opens up from dev for initial testing and dist for final testing
 
 **Layout/Design/Content/other**
 - [ ] Create additional nunjucks templates & test
