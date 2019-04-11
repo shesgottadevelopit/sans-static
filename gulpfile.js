@@ -6,7 +6,7 @@ var nunjucksRender = require('gulp-nunjucks-render');
 var merge = require('merge-stream');
 var log = require('fancy-log'); // suppose to replace gulp-util
 var gutil = require('gulp-util');
-var cleanbuild = require('del');
+var del = require('del');
 var markdown = require('nunjucks-markdown');
 var markdownIt = require('markdown-it');
 var matter = require('gray-matter');
@@ -260,8 +260,20 @@ gulp.task('watch', function(){
 
 });
 
+// clean build directory
+gulp.task('clean:build', function () {
+  return del([
+    // here we use a globbing pattern to match everything inside the export folder
+	'build/**/*'
+	// 'build'
+  ]);
+});
+
 // default
 gulp.task('default', ['nunjucks','posts','css','js','watch','browser-sync']);
+
+
+
 
 
 /*** deployment tasks
