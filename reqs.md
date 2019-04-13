@@ -32,7 +32,7 @@ Check the `package.json` file for a complete list. This is just my planning list
 - [x] Update existing code for rendering Nunjucks to HTML
 - [x] Write script for markdown compile task
 - [x] Rewrite script for nunjucks compile task
-- [ ] Update deploy/script so that browserSync opens up from dev for initial testing and dist for final testing
+- [x] Update deploy/script so that browserSync opens up from dev for initial testing and dist for final testing
 
 **Layout/Design/Content/other**
 - [ ] Create additional nunjucks templates & test

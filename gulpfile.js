@@ -1,7 +1,8 @@
 // load modules
 var fs = require('fs');
 var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
+// var browserSync = require('browser-sync').create();
+var browserSync = require('browser-sync');
 var nunjucksRender = require('gulp-nunjucks-render');
 var merge = require('merge-stream');
 var log = require('fancy-log'); // suppose to replace gulp-util
@@ -34,9 +35,12 @@ var dist = 'dist/';
 */
 
 // launch server
+var bs = browserSync.create()
 gulp.task('browser-sync', function() {
 
-    browserSync.init({
+    // var bsBuild = browserSync.create('dev')
+
+    bs.init({
 
         browser: 'chrome',
         notify: false,
@@ -44,12 +48,25 @@ gulp.task('browser-sync', function() {
         //vhost setup
         open: 'external', //opens to my specified url
         host: 'pinklemonade.sgdi',
-        proxy: 'pinklemonade.sgdi'
+        proxy: 'pinklemonade.sgdi',
+        serveStatic: [{
+        dir: 'build' //src --> build 
+        }]
 
         //localhost setup
         // server: {
         //     baseDir: 'src'
         // }
+    });
+
+});
+
+// production server test
+var bsProduction = browserSync.create()
+gulp.task('browser-sync-prod', function() {
+
+    bsProduction.init({
+        // fill in the rest
     });
 
 });
@@ -131,7 +148,7 @@ gulp.task('posts', function() {
         // let myListJson = JSON.stringify(myList, null, 4)
         fs.writeFileSync('build/data/post-archive.json', postJson)
     })
-    .pipe(browserSync.reload({stream: true}));
+    .pipe(bs.reload({stream: true}));
 
 });
 
@@ -209,7 +226,7 @@ gulp.task('nunjucks', function() {
         // let myListJson = JSON.stringify(myList, null, 4)
         fs.writeFileSync('build/data/page-archive.json', myListJson)
     })
-    .pipe(browserSync.reload({stream: true}));
+    .pipe(bs.reload({stream: true}));
 });
 
 // TO DO: nunjucks to html single page compilation | gulp single --page <file.ext>
@@ -240,14 +257,14 @@ gulp.task('test', function() {
 gulp.task('css', function(){
     return gulp.src('src/css/**/*')
     .pipe(gulp.dest('build/css'))
-    .pipe(browserSync.stream());
+    .pipe(bs.stream());
 });
 
 // javascript task
 gulp.task('js', function(){
     return gulp.src('src/js/**/*.js')
     .pipe(gulp.dest('build/js'))
-    .pipe(browserSync.reload({stream: true}));
+    .pipe(bs.reload({stream: true}));
 });
 
 // watch tasks allow for automation
