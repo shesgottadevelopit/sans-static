@@ -1,7 +1,6 @@
 // load modules
 var fs = require('fs');
 var gulp = require('gulp');
-// var browserSync = require('browser-sync').create();
 var browserSync = require('browser-sync');
 var nunjucksRender = require('gulp-nunjucks-render');
 var merge = require('merge-stream');
@@ -38,8 +37,6 @@ var dist = 'dist/';
 var bs = browserSync.create()
 gulp.task('browser-sync', function() {
 
-    // var bsBuild = browserSync.create('dev')
-
     bs.init({
 
         browser: 'chrome',
@@ -50,7 +47,7 @@ gulp.task('browser-sync', function() {
         host: 'pinklemonade.sgdi',
         proxy: 'pinklemonade.sgdi',
         serveStatic: [{
-        dir: 'build' //src --> build 
+        dir: 'build' //src --> build
         }]
 
         //localhost setup
