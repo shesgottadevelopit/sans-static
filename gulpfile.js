@@ -17,23 +17,20 @@ var gulpData = require('gulp-data');
 var gulpInject = require('gulp-inject-string');
 var gulpFm = require('gulp-front-matter');
 
-//var ftp = require('vinyl-ftp');
-
 
 //register global site data
 var siteData = require('./src/data/site.json');
 
-/* directories
- */
+// directories
 var src = "src/";
 var build = 'build/';
 var dist = 'dist/';
 
 
-/*** local development tasks
+/*** LOCAL development tasks
 */
 
-// launch server
+// launch development server
 var bs = browserSync.create()
 gulp.task('browser-sync', function() {
 
@@ -47,23 +44,13 @@ gulp.task('browser-sync', function() {
         host: 'pinklemonade.sgdi',
         proxy: 'pinklemonade.sgdi',
         serveStatic: [{
-        dir: 'build' //src --> build
+            dir: 'build' //src --> build
         }]
 
         //localhost setup
         // server: {
         //     baseDir: 'src'
         // }
-    });
-
-});
-
-// production server test
-var bsProduction = browserSync.create()
-gulp.task('browser-sync-prod', function() {
-
-    bsProduction.init({
-        // fill in the rest
     });
 
 });
@@ -114,7 +101,7 @@ gulp.task('posts', function() {
 
     // add extends for templating: {% extends "post.nunjucks" %}
     .pipe(gulpInject.wrap('{% extends "post.nunjucks" %}{% block content %}', '{% endblock %}'))
-    .pipe(gulpData(logData))
+    //.pipe(gulpData(logData))
 
     //renders files using the templates located in this directory.
     .pipe(nunjucksRender({
@@ -156,11 +143,11 @@ gulp.task('nunjucks', function() {
     var newObj = {};
 
     const str = fs.readFileSync('src/templates/pages/index.nunjucks', 'utf8');
-    console.log(matter(str));
+    //console.log(matter(str));
 
     // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
-    .pipe(gulpDebug({title: 'unicorn:'}))
+    .pipe(gulpDebug({title: 'njk to html rendering:'}))
 
     //extract frontmatter
     .pipe(gulpGrayMatter({
@@ -217,7 +204,7 @@ gulp.task('nunjucks', function() {
             fs.mkdirSync('build/data')
         }
 
-        console.log(myList)
+        //console.log(myList)
         let myListObj = Object.assign(newObj, myList);
         let myListJson = JSON.stringify(myListObj, null, 4)
         // let myListJson = JSON.stringify(myList, null, 4)
@@ -276,25 +263,39 @@ gulp.task('watch', function(){
 
 // clean build directory
 gulp.task('clean:build', function () {
-  return del([
-    // here we use a globbing pattern to match everything inside the export folder
-	'build/**/*'
-	// 'build'
-  ]);
+    console.log('deleting the build directory... lets have a fresh start')
+    return del([
+        // here we use a globbing pattern to match everything inside the export folder
+    	'build/**/*'
+    	// 'build'
+    ]);
 });
 
 // default
-gulp.task('default', ['nunjucks','posts','css','js','watch','browser-sync']);
+gulp.task('default', ['clean:build'], function() { // clean build directory and then start up all of the other tasks
+    gulp.start(['nunjucks','posts','css','js','watch','browser-sync'])
+});
 
 
 
 
 
-/*** deployment tasks
+/*** DEPLOYMENT tasks
 */
 
 // TO DO: fix my deploy tasks
 // TO DO: spin up browserSync when files are copied over to `dist`
+
+// production server test
+var bsProduction = browserSync.create()
+gulp.task('browser-sync-prod', function() {
+
+    bsProduction.init({
+        // fill in the rest
+    });
+
+});
+
 
 // copy production-ready directories & files to live site
 gulp.task('copy', function(){

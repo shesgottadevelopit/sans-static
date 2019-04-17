@@ -3,6 +3,12 @@
 ## Summary
 An HTML and CSS boilerplate project. This is also a learning exercise in creating a static site generator, allowing for markdown usage and frontmatter use in pages.
 
+Table of contents
+=================
+    * [Demystifying SSGs](#demystifying-ssgs)
+    * [How to use](#how-to-use)
+
+
 ## Demystifying SSGs
 What is a static site generator? "The basic concept of a static site generator (aka static site engine) is simple: take dynamic content and data and generate static HTML/JavaScript/CSS files that can be deployed to the server" from the command line. [Source](https://www.oreilly.com/ideas/static-site-generators)
 
