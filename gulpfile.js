@@ -18,8 +18,10 @@ var gulpInject = require('gulp-inject-string');
 var gulpFm = require('gulp-front-matter');
 
 
-//register global site data
+//declare site data
 var siteData = require('./src/data/site.json');
+var postArchive;
+var pageArchive;
 
 // directories
 var src = "src/";
@@ -147,8 +149,8 @@ gulp.task('nunjucks', function() {
     var myList = [];
     var newObj = {};
 
-    const str = fs.readFileSync('src/templates/pages/index.nunjucks', 'utf8');
-    //console.log(matter(str));
+    // const str = fs.readFileSync('src/templates/pages/index.nunjucks', 'utf8');
+    // console.log(matter(str));
 
     // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
