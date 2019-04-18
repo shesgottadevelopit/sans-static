@@ -26,6 +26,7 @@
     "markdown-it": "^8.4.2",
     "merge-stream": "^1.0.1",
     "nunjucks": "^3.2.0",
-    "nunjucks-markdown": "^2.0.1"
+    "nunjucks-markdown": "^2.0.1",
+    "opn": "^6.0.0"
   }
 }

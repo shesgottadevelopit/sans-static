@@ -39,7 +39,7 @@ gulp.task('browser-sync', function() {
 
     bs.init({
 
-        browser: 'chrome',
+        // browser: 'chrome',
         notify: false,
 
         //vhost setup
@@ -57,6 +57,8 @@ gulp.task('browser-sync', function() {
         // server: {
         //     baseDir: 'src'
         // }
+    }, function (err, bs) { //opens the browser in incognito
+    require('opn')(bs.options.getIn(['urls', 'local']), {app: ['chrome', '--incognito']});
     });
 
 });
