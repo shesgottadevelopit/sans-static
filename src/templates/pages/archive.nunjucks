@@ -12,17 +12,48 @@ layout: main
 {% extends layout +  ".nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
 
 
+
 {% block content %}
 <main>
 <!-- main page content -->
 
-    {% for post in posts %}
+{{ posts | dump | safe }}
+
+<br>
+<hr>
+
+    {# how to loop through objects #}
+<h3>objects</h3>
+    {% for item, post in posts %}
         <article class="post-{{loop.index0}}">
-            {{ title }}
+            {{ post.title }}
             <br>
-            {{ date }}
+            {{ post.date }}
             <br>
-            {{ keywords }}
+            {{ post.keywords }}
         </article>
+        <br>
+    {% endfor %}
+
+<br>
+<br>
+
+
+{{ pages | dump | safe }}
+
+<br>
+<hr>
+
+    {# how to loop through arrays #}
+<h3>arrays</h3>
+    {% for page in pages %}
+        <article class="post-{{loop.index0}}">
+            {{ page.title }}
+            <br>
+            {{ page.description }}
+            <br>
+            {{ page.keywords }}
+        </article>
+        <br>
     {% endfor %}
 {% endblock %}

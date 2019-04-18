@@ -20,8 +20,9 @@ var gulpFm = require('gulp-front-matter');
 
 //declare site data
 var siteData = require('./src/data/site.json');
-var postArchive;
-var pageArchive;
+var postArchive, pageArchive;
+var postArchiveStatic = require('./src/data/post-archive.json');
+var pageArchiveStatic = require('./src/data/page-archive.json');
 
 // directories
 var src = "src/";
@@ -45,9 +46,12 @@ gulp.task('browser-sync', function() {
         open: 'external', //opens to my specified url
         host: 'pinklemonade.sgdi',
         proxy: 'pinklemonade.sgdi',
+        // port: 7000,
         serveStatic: [{
-            dir: 'build' //src --> build
-        }]
+            // route: '/build',
+            dir: './build' //src --> build
+        }],
+        startPath: '/index.html'
 
         //localhost setup
         // server: {
@@ -81,6 +85,7 @@ function logData(file) {
 gulp.task('posts', function() {
 
         var myPosts = [];
+        var newPostObj = {}; newPostObj.posts = {}
 
     // gets .md files, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/posts/[^_]*.+(md)')
@@ -132,22 +137,31 @@ gulp.task('posts', function() {
         // console.log(myPosts)
         myPosts.sort(function (a,b){
             // return new Date(a.date).getTime() - new Date(b.date).getTime() // old to new
-            return new Date(b.date).getTime() - new Date(a.date).getTime() // new to old
+            return new Date(a.date).getTime() - new Date(b.date).getTime() // new to old
         })
+
+        // object with nested object
+
         let postObj = Object.assign({}, myPosts);
-        let postJson = JSON.stringify(postObj, null, 4)
+        newPostObj.posts = postObj; // added this
+        let postJson = JSON.stringify(newPostObj, null, 4)
         // let myListJson = JSON.stringify(myList, null, 4)
         fs.writeFileSync('build/data/post-archive.json', postJson)
+
+        postArchive = newPostObj;
     })
     .pipe(bs.reload({stream: true}));
+    // .pipe(bs.reload());
 
 });
 
 // pages | nunjucks compilation to html
-gulp.task('nunjucks', function() {
+gulp.task('nunjucks', ['posts'], function() {
+
+
 
     var myList = [];
-    var newObj = {};
+    var newObj = {}; newObj.pages = {};
 
     // const str = fs.readFileSync('src/templates/pages/index.nunjucks', 'utf8');
     // console.log(matter(str));
@@ -165,6 +179,16 @@ gulp.task('nunjucks', function() {
     .pipe(gulpData(function() {
         return siteData; // or use return require('./src/data/site.json')
     }))
+
+    // testing to see if I can use gulp-data twice
+    .pipe(gulpData(function() {
+        return postArchive;
+    }))
+
+    .pipe(gulpData(function() {
+        return pageArchiveStatic;
+    }))
+
     //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
     .pipe(nunjucksRender({
         // data: {
@@ -211,13 +235,24 @@ gulp.task('nunjucks', function() {
             fs.mkdirSync('build/data')
         }
 
-        //console.log(myList)
-        let myListObj = Object.assign(newObj, myList);
-        let myListJson = JSON.stringify(myListObj, null, 4)
-        // let myListJson = JSON.stringify(myList, null, 4)
+        // object with nested array
+        newObj.pages = myList
+        let myListJson = JSON.stringify(newObj, null, 4);
+
+        // object with nested object
+        // let myListObj = Object.assign({}, myList);
+        // newObj.posts = myListObj;
+        // let myListJson = JSON.stringify(newObj, null, 4);
+
+
+        // object with nested arrays version
+        // let myListObj = Object.assign(newObj, myList);
+        // let myListJson = JSON.stringify(newObj, null, 4);
+
         fs.writeFileSync('build/data/page-archive.json', myListJson)
     })
     .pipe(bs.reload({stream: true}));
+    // .pipe(bs.reload());
 });
 
 // TO DO: nunjucks to html single page compilation | gulp single --page <file.ext>
