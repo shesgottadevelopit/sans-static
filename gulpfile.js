@@ -90,7 +90,8 @@ gulp.task('posts', function() {
         var singlePost = {
             title: mdFile.data.title,
             description: mdFile.data.tags,
-            keywords: mdFile.data.albums
+            keywords: mdFile.data.albums,
+            date: mdFile.data.date
             // "content": content.content
         }
 
@@ -127,6 +128,10 @@ gulp.task('posts', function() {
         }
         // log(file)
         // console.log(myPosts)
+        myPosts.sort(function (a,b){
+            // return new Date(a.date).getTime() - new Date(b.date).getTime() // old to new
+            return new Date(b.date).getTime() - new Date(a.date).getTime() // new to old
+        })
         let postObj = Object.assign({}, myPosts);
         let postJson = JSON.stringify(postObj, null, 4)
         // let myListJson = JSON.stringify(myList, null, 4)

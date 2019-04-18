@@ -25,11 +25,24 @@ Date: [insert dates]
 - [ ] create a master site config file; url paths should be root relative
 - [ ] Clean up URLs
 
+## Entry No. 015
+Date: Wednesday 4/17/2019
+
+**Notes:**
+So this is what I landed on for sorting my array of posts. I added it to my gulpfile as a step right before I convert my JS object to a JSON file. Next I might want to break out some of my tasks, separation compilaton from data extraction - maybe?
+
+```js
+myPosts.sort(function (a,b){
+    // return new Date(a.date).getTime() - new Date(b.date).getTime() // old to new
+    return new Date(b.date).getTime() - new Date(a.date).getTime() // new to old
+})
+
+```
 ### Entry No. 014
 Date: Tuesday 4/16/2019
 
 **Notes:**
-SSo one of the things that is next on my list is to sort my articles by date. I found some tricks for doing that thanks to Stackoverflow but I really wanted to figure out how sorting works so I did a dive into `Array.sort()`.
+So one of the things that is next on my list is to sort my articles by date. I found some tricks for doing that thanks to Stackoverflow but I really wanted to figure out how sorting works so I did a dive into `Array.sort()`.
 
 By default, the `sort` method sorts numbers and strings alphabetically and/or in ascending order (small to large). You have the ability to use a **comparison function** that will modify the type of sort the method will complete.
 

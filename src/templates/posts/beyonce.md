@@ -1,6 +1,6 @@
 ---
 # This is a full line comment
-title: "Rihanna is the fav"
+title: "Rihanna is the fav newest"
 date: "1-29-2019"
 url: "/articles/rihanna.html"
 article: beyonce.md

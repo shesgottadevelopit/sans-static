@@ -1,6 +1,6 @@
 ---
-title: Rihanna is the fav
-date: 1-29-2019
+title: Rihanna is the fav second oldest
+date: 3-2-2018
 url: rihanna
 article: rihanna
 author: badgirlriri
@@ -30,7 +30,7 @@ makeup:
     mac2: ririwoo
     fenty: stunna
 ---
-# Heading 1 | page should start here 
+# Heading 1 | page should start here
 ## Sex with Me Lyrics
 
 ## YAML
