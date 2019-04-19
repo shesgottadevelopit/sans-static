@@ -12,13 +12,13 @@ There are a lot of static site generators out there that I could've learned but 
 Frontmatter is the data at the front/top of your document. It is typically enclosed between two lines with 3 dashes. It can be extracted from the document and into a file-based data format for usage (e.g. JSON or YAML).
 
 ---
-I'm tracking my process and progress in [`log.md`](log.md) and included a working requirements list w/to-dos in `reqs.md` if you're interested in wading through my stream of thoughts.
+I'm tracking my process and progress in [`log.md`](log.md) and included a working requirements list w/to-dos in [`reqs.md`](reqs.md) if you're interested in wading through my stream of thoughts.
 
 #### How to use
-Don't run any of these commands without actually having files in the `templates` directory or you'll probably get an error.
+Don't run any of these commands without actually having files in the `templates` directory or you'll probably get an error. See recommended directory structure below. 
 
 **Development tasks**
-- `gulp` will spin up the server and render your nunjucks files from the `build` directory. You'll be able to actively develop with this instance. CSS and markup changes will be reflected instantly.
+- `gulp`: will spin up the server and render your nunjucks files from the `build` directory. You'll be able to actively develop with this instance. CSS and markup changes will be reflected instantly.
 - `gulp posts`: renders posts written in markdown into a nunjucks template that is then rendered to html
 - `gulp nunjucks`: renders nunjucks pages to html
 - `gulp build`: just compiles nunjucks, posts, and copies js and css files into the `build` directory
@@ -35,7 +35,7 @@ Don't run any of these commands without actually having files in the `templates`
 **Misc**
 - `gulp clean`: deletes the `dist` directory and its files and deletes the files in `build`
 
--These tasks are used just for copying files at the moment:
+- These tasks are used just for copying files at the moment:
     - `gulp js`
     - `gulp css`
 

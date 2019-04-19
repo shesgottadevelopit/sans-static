@@ -40,8 +40,8 @@ Check the `package.json` file for a complete list. This is just my planning list
 - [x] Include vendor styles & scripts in js/css folders
 - [x] update .edigorconfig (tab spaces or nah)
 - [x] Create test page content with frontmatter
-- [ ] Use Nunjucks/JSON to render an archive page/homepage (sorting articles by date)
-- [ ] Use Nunjucks/JSON to render a post/article page
+- [x] Use Nunjucks/JSON to render an archive page/homepage (sorting articles by date)
+- [x] Use Nunjucks/JSON to render a post/article page
 - [ ] Update all pages to include reusable code when all gulp tasks are completed
 - [ ] Refactor as needed
 
