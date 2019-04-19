@@ -15,7 +15,15 @@ Frontmatter is the data at the front/top of your document. It is typically enclo
 I'm tracking my process and progress in [`log.md`](log.md) and included a working requirements list w/to-dos in [`reqs.md`](reqs.md) if you're interested in wading through my stream of thoughts.
 
 #### How to use
-Don't run any of these commands without actually having files in the `templates` directory or you'll probably get an error. See recommended directory structure below. 
+Don't run any of these commands without actually having files in the `templates` directory or you'll probably get an error. See recommended directory structure below.
+
+**Nunjucks Template Structure**
+- Layouts: Stores my layouts. Acceptable file extensions are `.html` and `.nunjucks`.
+- Pages: Stores pages that inherit the layouts defined by the files in `layouts`. Acceptable file extensions are `.html` and `.nunjucks`.
+- Partials: Stores reusable code that can be included in pages and layouts. Acceptable file extensions are `.html` and `.nunjucks`.
+- Posts: Stores my posts which are all written in Markdown and with frontmatter at the top. Only acceptable file extension is `.md`.
+
+For more on Nunjucks, check this out: https://mozilla.github.io/nunjucks/templating.html
 
 **Development tasks**
 - `gulp`: will spin up the server and render your nunjucks files from the `build` directory. You'll be able to actively develop with this instance. CSS and markup changes will be reflected instantly.
