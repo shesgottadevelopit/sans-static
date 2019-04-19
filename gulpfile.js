@@ -19,7 +19,7 @@ var gulpInject = require('gulp-inject-string');
 
 //declare site data
 var siteData = require('./src/data/site.json');
-var postsArchive, pageArchive;
+var postsArchive, pagesArchive;
 
 // directories
 var src = "src/";
@@ -82,7 +82,7 @@ gulp.task('browser-sync', function() {
 });
 
 // get& store post data
-gulp.task('fm-data', function (){
+gulp.task('fm-data-original', function (){
 
     var postList = [];
     var postListObj = {}; postListObj.posts = {}
@@ -118,7 +118,78 @@ gulp.task('fm-data', function (){
     });
 });
 
-// page compilation | .md --> nunjucks --> html
+// get& store post data
+gulp.task('fm-data', function (){
+
+    var postList = [];
+    var postListObj = {}; postListObj.posts = {}
+
+    // gets .md files, excludes files that start with an underscore ... globbing
+    var postStream = gulp.src('src/templates/posts/[^_]*.+(md)')
+
+    //extract frontmatter and save to array
+    .pipe(gulpData(function(file) {
+
+        var post = matter(file);
+        var singlePost = {
+            title: post.data.title,
+            description: post.data.tags,
+            keywords: post.data.albums,
+            date: post.data.date
+        }
+        postList.push(singlePost);
+    }))
+    //creates the json data file
+    .on('end', function(){
+        if (!fs.existsSync('build/data')){
+            fs.mkdirSync('build/data')
+        }
+
+        postList.sort(sortPosts)
+
+        // object with nested object
+        postListObj.posts = Object.assign({}, postList);
+        let postListJson = JSON.stringify(postListObj, null, 4)
+        fs.writeFileSync('build/data/post-archive.json', postListJson)
+        postsArchive = postListObj;
+    });
+
+    var pageList = [];
+    var pageListObj = {}; pageListObj.pages = {};
+
+    var pageStream = gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
+    .pipe(gulpData(function(file) {
+        var page = matter(file)
+        // var content = matter(file.contents);
+        // console.log(Object.getOwnPropertyNames(file));
+        var singlePage = {
+            title: page.data.title,
+            description: page.data.description,
+            keywords: page.data.keywords
+        }
+
+        pageList.push(singlePage);
+
+        }))
+    .on('end', function(){
+        if (!fs.existsSync('build/data')){
+            fs.mkdirSync('build/data')}
+
+        // object with nested array
+        pageListObj.pages = pageList
+        let pageListJson = JSON.stringify(pageListObj, null, 4);
+        fs.writeFileSync('build/data/page-archive.json', pageListJson)
+        pagesArchive = pageListObj
+
+        // object with nested object
+        // let pageListObj.posts = Object.assign({}, pageList);
+        // let myListJson = JSON.stringify(pageListObj, null, 4);
+
+    })
+        return merge(postStream, pageStream)
+});
+
+// post compilation | .md --> nunjucks --> html
 gulp.task('posts', ['fm-data'], function() {
 
     // gets .md files, excludes files that start with an underscore ... globbing
@@ -153,17 +224,12 @@ gulp.task('posts', ['fm-data'], function() {
 // pages | nunjucks compilation to html
 gulp.task('nunjucks', ['posts'], function() {
 
-
-
-    var myList = [];
-    var newObj = {}; newObj.pages = {};
-
     // const str = fs.readFileSync('src/templates/pages/index.nunjucks', 'utf8');
     // console.log(matter(str));
 
     // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
-    .pipe(gulpDebug({title: 'njk to html rendering:'}))
+    .pipe(gulpDebug({title: 'njk to html rendering:', minimal: false}))
 
     //extract frontmatter
     .pipe(gulpGrayMatter({
@@ -175,20 +241,12 @@ gulp.task('nunjucks', ['posts'], function() {
         return siteData; // or use return require('./src/data/site.json')
     }))
 
-    // testing to see if I can use gulp-data twice
-    .pipe(gulpData(function() {
-        return postsArchive;
-    }))
-
-    // .pipe(gulpData(function() {
-    //     return pageArchiveStatic;
-    // }))
+    // use extracted frontmatter data for templating archive pages
+    .pipe(gulpData(function() { return postsArchive;}))
+    .pipe(gulpData(function() { return pagesArchive; }))
 
     //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
     .pipe(nunjucksRender({
-        // data: {
-        //     test: 'data/site.json' // and inside of the template use {{ site.author }}
-        // },
         manageEnv: nunjucksMarkdownRender,
         envOptions: {
             autoescape: false
@@ -201,53 +259,7 @@ gulp.task('nunjucks', ['posts'], function() {
     .on('error', gutil.log) // checks and logs errors
     //outputs the files into the src home folder
     .pipe(gulp.dest('build'))
-    .pipe(gulpData(function(file) {
-            var content = matter(file.contents);
-            //console.log(file)
-            // console.log(file.data);
-            console.log(file.path);
-            console.log(Object.getOwnPropertyNames(file));
-            console.log(file.base)
-            //console.log(file.contents)
-            //console.log(content)
-            var singleFile = {
-                title: file.data.title,
-                description: file.data.description,
-                keywords: file.data.keywords
-                // "content": content.content
-            }
-            // var singleFile = file.data;
-
-            myList.push(singleFile);
-
-        }))
-    .pipe(gulpDebug({title: 'unicorn:', minimal: false}))
-    .on('end', function(){
-        // log(gulpGrayMatter({}));
-        // log(file)
-
-        if (!fs.existsSync('build/data')){
-            fs.mkdirSync('build/data')
-        }
-
-        // object with nested array
-        newObj.pages = myList
-        let myListJson = JSON.stringify(newObj, null, 4);
-
-        // object with nested object
-        // let myListObj = Object.assign({}, myList);
-        // newObj.posts = myListObj;
-        // let myListJson = JSON.stringify(newObj, null, 4);
-
-
-        // object with nested arrays version
-        // let myListObj = Object.assign(newObj, myList);
-        // let myListJson = JSON.stringify(newObj, null, 4);
-
-        fs.writeFileSync('build/data/page-archive.json', myListJson)
-    })
     .pipe(bs.reload({stream: true}));
-    // .pipe(bs.reload());
 });
 
 // TO DO: nunjucks to html single page compilation | gulp single --page <file.ext>
