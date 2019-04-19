@@ -44,7 +44,13 @@ Done done done!
 
 Realized in the process that I don't need to store my data in the `build` directory. Still figuring that out too.
 
-## Entry No. 015
+**Navigation**
+I'm currently thinking about ways to generate a JS object or JSON file of pages that will appear in the top navigation and my pseudo codes goes:
+- add an option in page frontmatter for "top-nav" and the value should either be true/false or yes/no
+- if the value is true/yes, then I can check for that value with JS and pull that pages content into a JS object or JSON file, skipping over the other pages
+- I can also add a "nav-sort" order and after the JS object or JSON file is completed, sort by that value
+
+### Entry No. 015
 Date: Wednesday 4/17/2019
 
 **Notes:**
