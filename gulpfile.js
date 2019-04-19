@@ -19,7 +19,8 @@ var gulpInject = require('gulp-inject-string');
 
 //declare site data
 var siteData = require('./src/data/site.json');
-var postsArchive, pagesArchive;
+// var postsArchive, pagesArchive;
+var siteArchive = {};
 
 // directories
 var src = "src/";
@@ -141,17 +142,18 @@ gulp.task('fm-data', function (){
     }))
     //creates the json data file
     .on('end', function(){
-        if (!fs.existsSync('build/data')){
-            fs.mkdirSync('build/data')
-        }
+        // if (!fs.existsSync('build/data')){
+        //     fs.mkdirSync('build/data')
+        // }
 
         postList.sort(sortPosts)
 
         // object with nested object
         postListObj.posts = Object.assign({}, postList);
-        let postListJson = JSON.stringify(postListObj, null, 4)
-        fs.writeFileSync('build/data/post-archive.json', postListJson)
-        postsArchive = postListObj;
+        // let postListJson = JSON.stringify(postListObj, null, 4)
+        // fs.writeFileSync('build/data/post-archive.json', postListJson)
+        // postsArchive = postListObj;
+        siteArchive.posts = postListObj.posts;
     });
 
     var pageList = [];
@@ -172,21 +174,35 @@ gulp.task('fm-data', function (){
 
         }))
     .on('end', function(){
-        if (!fs.existsSync('build/data')){
-            fs.mkdirSync('build/data')}
+        // if (!fs.existsSync('build/data')){
+        //     fs.mkdirSync('build/data')}
 
         // object with nested array
         pageListObj.pages = pageList
-        let pageListJson = JSON.stringify(pageListObj, null, 4);
-        fs.writeFileSync('build/data/page-archive.json', pageListJson)
-        pagesArchive = pageListObj
+        // let pageListJson = JSON.stringify(pageListObj, null, 4);
+        // fs.writeFileSync('build/data/page-archive.json', pageListJson)
+        // pagesArchive = pageListObj
+        siteArchive.pages = pageListObj.pages;
+        // console.log(siteArchive)
 
         // object with nested object
         // let pageListObj.posts = Object.assign({}, pageList);
         // let myListJson = JSON.stringify(pageListObj, null, 4);
 
     })
-        return merge(postStream, pageStream)
+
+    var allStreams = gulp.src(['src/templates/pages/[^_]*.+(nunjucks|html)', 'src/templates/posts/[^_]*.+(md)' ])
+    .on('data', function () {
+        console.log(siteArchive)
+        if (!fs.existsSync('build/data')){
+            fs.mkdirSync('build/data')}
+
+        // object with nested array
+        let siteArchiveJson = JSON.stringify(siteArchive, null, 4);
+        fs.writeFileSync('build/data/site-archive.json', siteArchiveJson)
+    })
+
+        return merge(postStream, pageStream, allStreams)
 });
 
 // post compilation | .md --> nunjucks --> html
@@ -242,8 +258,7 @@ gulp.task('nunjucks', ['posts'], function() {
     }))
 
     // use extracted frontmatter data for templating archive pages
-    .pipe(gulpData(function() { return postsArchive;}))
-    .pipe(gulpData(function() { return pagesArchive; }))
+    .pipe(gulpData(function() { return siteArchive;}))
 
     //renders files using the templates located in this directory. storing the template directories in an array allows the usage of just files names w/extends & includes
     .pipe(nunjucksRender({
@@ -319,20 +334,30 @@ gulp.task('clean:build', function () {
     ]);
 });
 
+// clean build directory
+gulp.task('clean', function () {
+    console.log('deleting the build and dist directories... lets have a fresh start')
+    return del([
+        // here we use a globbing pattern to match everything inside the export folder
+    	'build/**/*',
+        'dist/**/*',
+    	'dist'
+    ]);
+});
+
 // default
 gulp.task('default', ['clean:build'], function() { // clean build directory and then start up all of the other tasks
     gulp.start(['nunjucks','posts','css','js','watch','browser-sync'])
 });
 
 
+gulp.task('build', ['nunjucks', 'posts', 'css', 'js'])
 
 
 
 /*** DEPLOYMENT tasks
 */
 
-// TO DO: fix my deploy tasks
-// TO DO: spin up browserSync when files are copied over to `dist`
 
 // production server test
 var bsProd = browserSync.create()
@@ -360,56 +385,42 @@ gulp.task('browser-sync-prod', function() {
 
 });
 
+// clean directory with production ready files before
+gulp.task('clean:prod', function () {
+    console.log('deleting the production-ready directory... lets have a fresh start')
+    return del([
+        // here we use a globbing pattern to match everything inside the export folder
+    	'dist/**/*',
+    	'dist'
+    ]);
+});
 
 // copy production-ready directories & files to live site
-gulp.task('copy', function(){
+gulp.task('copy', ['clean:prod'], function(){
 
     //javascript, css, and image files
     var assets = gulp.src([
-        'src/css/**/*.css',
-        'src/img/**/**',
-        'src/js/**/*'], {
+        'build/**/**',
+        '!build/css/styles.css.map',
+        '!build/{data,data/**}'], {
         //you must establish a base for directories, it will copy everything after dev, according to the specified source
-        base: 'dev'
+        base: 'build'
     }).pipe(gulp.dest('dist'));
 
-    //html files to root directory
-    var mainHTML = gulp.src('src/*.html')
-    .pipe(gulp.dest('dist'));
+    // //html files to root directory
+    // var mainHTML = gulp.src('src/*.html')
+    // .pipe(gulp.dest('dist'));
 
-    return merge(assets, mainHTML); //merge-stream plugin allows us to merge this into one task
+    return merge(assets); //merge-stream plugin allows us to merge this into one task
 
 });
 
-
-/*** deployment tasks part 2
-*/
-// run gulp dist
-gulp.task('dist', ['clean', 'copy']);
-
-
-// clean directory before copying files for development testing or distribution
-gulp.task('clean', function () {
-  return cleanbuild([
-    // here we use a globbing pattern to match everything inside the export folder
-	'dist/**/*',
-	'dist'
-  ]);
+// preview files using browser-sync
+gulp.task('preview', ['build'], function() {
+    gulp.start(['clean:prod', 'copy', 'browser-sync-prod'])
 });
 
-// copy production-ready directories & files to live site
-gulp.task('copy', function () {
-
-	//javascript, css, and image files
-	var finalbuild = gulp.src([
-		'src/**/**', // this copies the entire theme folder into the 'export' folder mentioned below
-		'!src/scss/',
-		'!src/scss/**/**',
-		'!src/css/style.css.map'], {
-		//you must establish a base for directories, it will copy everything after dev, according to the specified source
-		base: 'src'
-	}).pipe(gulp.dest('dist'));
-
-	return merge(finalbuild); //merge-stream plugin allows us to merge this into one task
-
+// package final files
+gulp.task('package', ['build'], function() {
+    gulp.start(['clean:prod', 'copy'])
 });
