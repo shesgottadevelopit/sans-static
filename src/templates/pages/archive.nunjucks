@@ -1,29 +1,28 @@
 ---
 title: Archive Page
-description: This is my homepage
-author: badgalriri
+description: This is an archive page template
+author: untitled
 keywords:
-    - homepage
-    - basic shit
-    - super basic shit
+    - archives
+    - older posts
+    - historical data
 layout: main
+nav: top
 ---
-{# index.nunjucks #}
-{% extends layout +  ".nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}
 
+{% extends layout +  ".nunjucks" %}  {# //inherit layout #}
 
 
 {% block content %}
 <main>
 <!-- main page content -->
 
-{{ posts | dump | safe }}
+{# {{ posts | dump | safe }} #}
+{# {{ pages | dump | safe }} #}
+{# <br><hr> #}
 
-<br>
-<hr>
-
-    {# how to loop through objects #}
-<h3>objects</h3>
+{# how to loop through objects #}
+<h3>JSON/JS Object with collection of posts</h3>
     {% for item, post in posts %}
         <article class="post-{{loop.index0}}">
             {{ post.title }}
@@ -35,19 +34,13 @@ layout: main
         <br>
     {% endfor %}
 
-<br>
-<br>
+<br><br>
 
 
-{{ pages | dump | safe }}
-
-<br>
-<hr>
-
-    {# how to loop through arrays #}
-<h3>arrays</h3>
+{# how to loop through arrays #}
+<h3>Array with collection of pages</h3>
     {% for page in pages %}
-        <article class="post-{{loop.index0}}">
+        <article>
             {{ page.title }}
             <br>
             {{ page.description }}

@@ -167,7 +167,8 @@ gulp.task('fm-data', function (){
         var singlePage = {
             title: page.data.title,
             description: page.data.description,
-            keywords: page.data.keywords
+            keywords: page.data.keywords,
+            nav: page.data.nav
         }
 
         pageList.push(singlePage);
@@ -193,7 +194,7 @@ gulp.task('fm-data', function (){
 
     var allStreams = gulp.src(['src/templates/pages/[^_]*.+(nunjucks|html)', 'src/templates/posts/[^_]*.+(md)' ])
     .on('data', function () {
-        console.log(siteArchive)
+        //console.log(siteArchive)
         if (!fs.existsSync('build/data')){
             fs.mkdirSync('build/data')}
 
