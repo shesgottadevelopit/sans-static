@@ -23,7 +23,7 @@ Date: [insert dates]
 - [ ] super enhancement: Clean up URLs
 - [ ] compile a single page and/or post
 
-### Entry No. 00x
+### Entry No. 019
 Date: Tuesday 4/23/2019
 
 **Notes:**
@@ -33,9 +33,9 @@ I created a function that would give me the file's name (without the extention) 
 
 ```js
 // filename concatenator function
-var filePath = function (file) {
-    var filename = path.parse(file.path).name;
-    return filename
+var fileName = function (file) {
+    var name = path.parse(file.path).name;
+    return name
 }
 ```
 
@@ -47,7 +47,7 @@ var singlePost = {
     description: post.data.tags,
     keywords: post.data.albums,
     date: post.data.date,
-    url: `/articles/${filePath(file)}.html` // this is the new line
+    url: `/articles/${fileName(file)}.html` // this is the new line
 }
 ```
 
@@ -55,7 +55,7 @@ Today I also added a sort function to my top navigation frontmatter thingy. If a
 
 Isn't that awesome!
 
-I think I'm going to do some more reading up on `return`ing data in JS. 
+I think I'm going to do some more reading up on `return`ing data in JS.
 
 ### Entry No. 018
 Date: Monday 4/22/2019
