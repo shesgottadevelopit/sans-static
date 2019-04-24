@@ -51,7 +51,7 @@ var singlePost = {
 }
 ```
 
-Today I also added a sort function to my top navigation frontmatter thingy. If a page has the "top nav" label in the frontmatter, it will include a number. If it doesn't have a number. That number is then used to sort all of the pages in ascending order. So basically in my nunjucks template, I'm checking to see if the property "top nav" exists. If it does, it loops through and adds that file's information into the navigation template. So my `pages` object will have all of the pages, but the top navigation will only output pages that have a "top nav" property :-).
+Today I also added a sort function to my top navigation frontmatter thingy. If a page has the "top nav" label in the frontmatter, it will include a number. If it doesn't have a number, it won't be included in the top nav loop. For pages with a number in the "top nav" label in the frontmatter, that number is then used to sort all of the pages in ascending order - in my gulp task. Back in my nunjucks template, I'm checking to see if the property "top nav" exists. If it does, it loops through and adds that file's information into the navigation template. So my `pages` object will have all of the pages, but the top navigation will only output pages that have a "top nav" property :-). And I'm using that to "dynamically" generate a top navigation, designating pages that should appear in the top nav, and also creating a hierarchy for that. 
 
 Isn't that awesome!
 
