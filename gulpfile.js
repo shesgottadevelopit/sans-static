@@ -1,5 +1,6 @@
 // load modules
 var fs = require('fs');
+var path = require('path');
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var nunjucksRender = require('gulp-nunjucks-render');
@@ -53,6 +54,12 @@ function logData(file) {
 function sortPosts(a,b) {
     // return new Date(a.date).getTime() - new Date(b.date).getTime() // old to new
     return new Date(a.date).getTime() - new Date(b.date).getTime() // new to old
+}
+
+// filename concatenator function
+var fileName = function (file) {
+    var name = path.parse(file.path).name;
+    return name
 }
 
 // launch development server
@@ -136,9 +143,11 @@ gulp.task('fm-data', function (){
             title: post.data.title,
             description: post.data.tags,
             keywords: post.data.albums,
-            date: post.data.date
+            date: post.data.date,
+            url: `/articles/${fileName(file)}.html`
         }
         postList.push(singlePost);
+        // console.log(Object.getOwnPropertyNames(post))
     }))
     //creates the json data file
     .on('end', function(){
@@ -168,7 +177,8 @@ gulp.task('fm-data', function (){
             title: page.data.title,
             description: page.data.description,
             keywords: page.data.keywords,
-            nav: page.data.nav
+            nav: page.data.nav,
+            url: `/${fileName(file)}.html`
         }
 
         pageList.push(singlePage);
@@ -177,6 +187,10 @@ gulp.task('fm-data', function (){
     .on('end', function(){
         // if (!fs.existsSync('build/data')){
         //     fs.mkdirSync('build/data')}
+
+        pageList.sort(function(a,b) {
+            return a.nav - b.nav // ascending
+        })
 
         // object with nested array
         pageListObj.pages = pageList
@@ -246,7 +260,7 @@ gulp.task('nunjucks', ['posts'], function() {
 
     // gets .html & .nunjucks files in the directory, excludes files that start with an underscore ... globbing
     return gulp.src('src/templates/pages/[^_]*.+(nunjucks|html)')
-    .pipe(gulpDebug({title: 'njk to html rendering:', minimal: false}))
+    // .pipe(gulpDebug({title: 'njk to html rendering:', minimal: false}))
 
     //extract frontmatter
     .pipe(gulpGrayMatter({

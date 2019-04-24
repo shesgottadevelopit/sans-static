@@ -7,7 +7,7 @@ keywords:
     - css
     - semantic
 layout: main
-nav: top
+nav: 2
 ---
 
 {% set title = "HTML5 Test Page" %}

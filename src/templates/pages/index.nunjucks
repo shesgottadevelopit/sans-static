@@ -7,7 +7,7 @@ keywords:
     - basic shit
     - super basic shit
 layout: main
-nav: top
+nav: 1
 ---
 {# index.nunjucks #}
 {% extends layout +  ".nunjucks" %}  {# //this code allows index.nunjucks to inherit it's structure #}

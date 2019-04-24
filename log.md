@@ -23,6 +23,68 @@ Date: [insert dates]
 - [ ] super enhancement: Clean up URLs
 - [ ] compile a single page and/or post
 
+### Entry No. 00x
+Date: Tuesday 4/23/2019
+
+**Notes:**
+Soooo I figured out a way in file paths so that I can reference them in my nunjucks templates.
+
+I created a function that would give me the file's name (without the extention) using the `path` module. I want it without the extension because this extraction process is happening before the nunjucks file turns into HTML.
+
+```js
+// filename concatenator function
+var filePath = function (file) {
+    var filename = path.parse(file.path).name;
+    return filename
+}
+```
+
+Then I invoke this function as part of a template literal while I'm setting properties for the frontmatter I'm extracting in my posts (and nunjucks) gulp tasks. As you'll see below, I just concatenated everything using the ES6 template literal, hardcoding the directory and extension.
+
+```js
+var singlePost = {
+    title: post.data.title,
+    description: post.data.tags,
+    keywords: post.data.albums,
+    date: post.data.date,
+    url: `/articles/${filePath(file)}.html` // this is the new line
+}
+```
+
+Today I also added a sort function to my top navigation frontmatter thingy. If a page has the "top nav" label in the frontmatter, it will include a number. If it doesn't have a number. That number is then used to sort all of the pages in ascending order. So basically in my nunjucks template, I'm checking to see if the property "top nav" exists. If it does, it loops through and adds that file's information into the navigation template. So my `pages` object will have all of the pages, but the top navigation will only output pages that have a "top nav" property :-).
+
+Isn't that awesome!
+
+I think I'm going to do some more reading up on `return`ing data in JS. 
+
+### Entry No. 018
+Date: Monday 4/22/2019
+
+**Notes:**
+I pushed real hard on this project and I don't want to lose momentum. So now I need to figure out a use case for the SSG in one of my upcoming projects and also start working on enhancements.
+
+One thing I'm trying to do is figure out how to pull out the file paths from the streams and store them in the JS object and then in my JSON file. Some pseudocode:
+```
+at the end of each stream, check to see if file.data.title === siteData.pages.title,
+if true, add file.data.path to that pages or post object
+do this for each page and then update the JSON file
+```
+
+Some reading for later:
+- https://www.linkedin.com/pulse/javascript-find-object-array-based-objects-property-rafael
+- https://stackoverflow.com/questions/6237537/finding-matching-objects-in-an-array-of-objects
+
+Issue is that I need to pull this data before running the `posts` and `nunjucks` tasks. So I'll probably end up doing some find/replace magic
+
+Something like:
+```
+let pageURL = file.data.pwd
+let base = baseURL
+... concat the base with pageURL
+url:
+```
+
+
 ### Entry No. 017
 Date: Friday 4/19/2019
 
