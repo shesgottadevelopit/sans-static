@@ -19,17 +19,13 @@
     {# start body content #}
 <div class="page">
             {# this adds the header partial #}
-            {% block header %}
-            {% include "header.nunjucks" %}
-            {% endblock %}
+            {% block header %}{% include "header.nunjucks" %}{% endblock %}
 
         {% block content %}
         {% endblock %}
 
             {# this adds the footer partial #}
-            {% block footer %}
-            {% include "footer.nunjucks" %}
-            {% endblock %}
+            {% block footer %}{% include "footer.nunjucks" %}{% endblock %}
 
 </div>
     {# end body content #}

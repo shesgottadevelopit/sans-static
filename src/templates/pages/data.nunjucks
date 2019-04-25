@@ -1,0 +1,67 @@
+---
+title: Test Data Page
+description: A test page to render data from JS or JSON.
+author:
+keywords:
+    -
+    -
+    -
+layout: main
+nav: 6
+---
+
+{% extends layout +  ".nunjucks" %}  {# //this code allows this file to inherit it's structure #}
+
+
+
+{% block content %}
+<!-- main page content -->
+<main>
+    <div>
+        <h1>Test Data Page</h1>
+        <br>
+
+        <h2>Data from site config file</h2>
+        <div class="">Site: {{ site | dump | safe }}</div>
+        <br>
+
+        <h2>Data for iterating over pages and posts</h2>
+        <div class="">Posts: {{ posts | dump | safe }}</div>
+        <br>
+        <div class="">Pages: {{ pages | dump | safe }}</div>
+        <br>
+
+
+        {# how to loop through objects #}
+        <h3>JSON/JS Object with collection of posts</h3>
+            {% for item, post in posts %}
+                <article class="post-{{loop.index0}}">
+                    <ul>
+                        <li>{{ post.title }}</li>
+                        <li>{{ post.date}}</li>
+                        <li>{{ post.keywords}}</li>
+                    </ul>
+                </article>
+                <br>
+            {% endfor %}
+
+        <br><br>
+
+
+        {# how to loop through arrays #}
+        <h3>Array with collection of pages</h3>
+            {% for page in pages %}
+                <article>
+                    <ul>
+                        <li>{{ page.title }}</li>
+                        <li>{{ page.description }}</li>
+                        <li>{{ page.keywords }}</li>
+                    </ul>
+                </article>
+                <br>
+            {% endfor %}
+
+
+    </div>
+</main>
+{% endblock %}

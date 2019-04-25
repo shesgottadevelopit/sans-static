@@ -7,14 +7,11 @@ keywords:
     - keyword
 layout: main
 ---
-
 {% extends layout +  ".nunjucks" %}  {# //this code allows this file to inherit it's structure #}
 
 {% block content %}
 <!-- main page content -->
 <main>
-
 {% markdown "md.md" %}
-
 </main>
 {% endblock %}

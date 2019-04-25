@@ -19,9 +19,8 @@
 <!-- header & navigation -->
 <div>
     <header>
-        <h1>This is the header</h1>
-
         <nav class="site-nav">
+            <span>Navigation Menu:</span><br>
             <ul class="menu-nav">
             {% for page in pages %}
                 {% if page.nav %}

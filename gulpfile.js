@@ -20,7 +20,6 @@ var gulpInject = require('gulp-inject-string');
 
 //declare site data
 var siteData = require('./src/data/site.json');
-// var postsArchive, pagesArchive;
 var siteArchive = {};
 
 // directories
@@ -228,6 +227,14 @@ gulp.task('posts', ['fm-data'], function() {
 
     //extract frontmatter
     .pipe(gulpFm({remove: true}))
+
+    // use my site's data stored in a json file
+    .pipe(gulpData(function() {
+        return siteData; // or use return require('./src/data/site.json')
+    }))
+
+    // use extracted frontmatter data for templating archive pages
+    .pipe(gulpData(function() { return siteArchive;}))
 
     // add extends for templating: {% extends "post.nunjucks" %}
     .pipe(gulpInject.wrap('{% extends "post.nunjucks" %}{% block content %}', '{% endblock %}'))

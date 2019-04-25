@@ -1,11 +1,8 @@
 ---
-title: Rihanna is the fav second oldest
+title: Rihanna Music Page
 date: 3-2-2018
-url: rihanna
-article: rihanna
-author: badgirlriri
-description:
-template:
+author: Robyn Rihanna Fenty
+description: A sample post page with information about a baddie named Rihanna
 layout: post
 tags:
 - fentyxsavage
@@ -26,50 +23,14 @@ collection:
       cost: 2015
       color: yes yes
 makeup:
-    mac: ririheaux
-    mac2: ririwoo
-    fenty: stunna
+    lipstick1: ririheaux
+    lipstick2: ririwoo
+    fenty-lipstick1: stunna
 ---
-# Heading 1 | page should start here
 ## Sex with Me Lyrics
 
-## YAML
-This page returns this data from the frontmatter: i love you
-
-```yaml
----
-title: "Rihanna is the fav"
-date: "1-29-2019"
-url: "/articles/riri-sample"
-author: badgirlriri
-description:
-template:
-layout:
-tags:
-- fentyxsavage
-- Legends
-- Trailblazer
-albums:
-    - Loud
-    - ANTI
-    - Talk that Talk
-collection:
-    - album: Loud
-      year: 2014
-      certified: yes
-    - name: ANTI
-      cost: 2016
-      color: hell yess
-    - name: Talk that Talk
-      cost: 2015
-      color: yes yes
-makeup:
-    mac: ririheaux
-    mac2: ririwoo
-    fenty: stunna
----
-```
-
+### YAML Frontmatter to JS/JSON
+This section returns this data from the frontmatter:
 ```js
 { content: 'This is content',
   data:
@@ -88,22 +49,6 @@ makeup:
   isEmpty: false,
   excerpt: '' }
 ```
-
-
-### Albums
-**The represents an array**
-{% for album in file.data.albums %}
-- {{ album }}
-{% endfor %}
-
-### Albums & Years
-**The represents an object**
-{% for each in page.albums %}
-- {{ item.album }}
-- {{ item.year }}
-- {{ item.certified }}
-{% endfor %}
-
 
 ### Chorus
 Sex with me, so amazing

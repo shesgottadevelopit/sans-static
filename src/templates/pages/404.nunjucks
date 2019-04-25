@@ -1,8 +1,9 @@
 ---
 title: What's the 404?
-description: description
-author: author
+description:
+author:
 keywords:
+    - keyword
     - keyword
     - keyword
 layout: main
@@ -15,21 +16,15 @@ layout: main
 {% block content %}
 <!-- main page content -->
 <main>
-hello world this is a test. lets try again
-
-    <div>
-        <section>
+    <section>
+        <div>
+            <h2>Sorry, this page does not exist!! Return to my <a href="index.html">homepage</a> and try again!</h2>
             <div>
-                <h2>Sorry, this page does not exist!! Return to my <a href="index.html">homepage</a> and try again!</h2>
-                <div>
-                    <img src="img/404-maxine.gif" alt="Maxine Shaw from Living Single Face Palm">
-                </div>
-                <br>
-
+                <img src="img/404-maxine.gif" alt="Maxine Shaw from Living Single Face Palm">
             </div>
-        </section>
-    </div>
+            <br>
 
-
+        </div>
+    </section>
 </main>
 {% endblock %}

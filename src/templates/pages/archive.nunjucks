@@ -1,7 +1,7 @@
 ---
 title: Archive Page
 description: This is an archive page template
-author: untitled
+author:
 keywords:
     - archives
     - older posts
@@ -15,38 +15,5 @@ nav: 5
 
 {% block content %}
 <main>
-<!-- main page content -->
-
-{# {{ posts | dump | safe }} #}
-{# {{ pages | dump | safe }} #}
-{# <br><hr> #}
-
-{# how to loop through objects #}
-<h3>JSON/JS Object with collection of posts</h3>
-    {% for item, post in posts %}
-        <article class="post-{{loop.index0}}">
-            {{ post.title }}
-            <br>
-            {{ post.date }}
-            <br>
-            {{ post.keywords }}
-        </article>
-        <br>
-    {% endfor %}
-
-<br><br>
-
-
-{# how to loop through arrays #}
-<h3>Array with collection of pages</h3>
-    {% for page in pages %}
-        <article>
-            {{ page.title }}
-            <br>
-            {{ page.description }}
-            <br>
-            {{ page.keywords }}
-        </article>
-        <br>
-    {% endfor %}
+</main>
 {% endblock %}
